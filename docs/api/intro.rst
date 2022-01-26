@@ -19,7 +19,7 @@ REST API
 Summary
 ---------------------------------------------------
 
-This is the summary of REST API for Mitum Currency.
+| This is the summary of REST API for Mitum Currency.
 
 +----------------------------------------+-----------------------+------------------------------------+
 | REQUEST URL                            | METHOD                | RESPONSE                           |

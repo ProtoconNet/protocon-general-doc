@@ -2,7 +2,7 @@
 Storage Command
 ===================================================
 
-| ``storage`` command helps **download**, **verifie**, and **restore** block data.
+| ``storage`` command helps **download**, **verify**, and **restore** block data.
 
 | The subcommands related to ``storage`` command are as follows.
 

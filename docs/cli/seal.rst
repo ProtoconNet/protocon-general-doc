@@ -991,7 +991,7 @@ send
 
 | When sending to a local node for testing, an error may occur related to tls authentication.
 
-In this case, give the option ``–tls-insecure=true`` when sending seals.
+| In this case, give the option ``–tls-insecure=true`` when sending seals.
 
 .. code-block:: shell
 
