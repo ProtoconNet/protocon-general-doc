@@ -157,7 +157,7 @@ Create Operation Item
 * First, create each key by ``Generator.currency().newKey(public key, weight)``.
 * Second, combine all keys with account threshold by ``Generator.currency().newKeys(key list, threshold)``.
 * Third, create each amount by ``Generator.currency().newAmount(currencyId, amount)``.
-* Finally, create an item by ``Generator.currency().createCreateAccountsItem(keys, amount list)
+* Finally, create an item by ``Generator.currency().createCreateAccountsItem(keys, amount list)``
 
 | Of course you can customize the content of items by following constrains.
 
@@ -379,7 +379,7 @@ Transfer
 * CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca
 
 | Note that up to 10 (currency id, amount) pairs can be included in one item.
-| Moreover, up to 10 item can be included in one item. However, the receiver for each item should be different.
+| Moreover, up to 10 item can be included in one fact. However, the receiver for each item should be different.
 
 .. code-block:: java
 
@@ -678,7 +678,7 @@ JSONParser
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | This class is constructed just for convenience.
-| If you would like to use other js package to export ``Operation`` to file or to print it in JSON format, you don't need to use ``JSONParser`` of **mitum-java-util**.
+| If you would like to use other java package to export ``Operation`` to file or to print it in JSON format, you don't need to use ``JSONParser`` of **mitum-java-util**.
 
 .. code-block:: java
 

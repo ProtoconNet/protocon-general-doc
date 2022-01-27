@@ -168,7 +168,7 @@ Create Operation Item
 * Second, combine all keys with account threshold by ``Generator.currency.createKeys(key list, threshold)``.
 * Third, create each amount by ``Generator.currency.amount(amount, currencyId)``.
 * Forth, combine all amounts by ``Generator.currency.createAmounts(amount list)``.
-* Finally, create an item by ``Generator.currency.createCreateAccountsItem(keys, amounts)
+* Finally, create an item by ``Generator.currency.createCreateAccountsItem(keys, amounts)``
 
 | Of course you can customize the content of items by following constrains.
 
@@ -386,7 +386,7 @@ Transfer
 * CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca
 
 | Note that up to 10 (currency id, amount) pairs can be included in one item.
-| Moreover, up to 10 item can be included in one item. However, the receiver for each item should be different.
+| Moreover, up to 10 item can be included in one fact. However, the receiver for each item should be different.
 
 .. code-block:: javascript
 
