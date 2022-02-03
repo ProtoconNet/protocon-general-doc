@@ -1267,7 +1267,7 @@ Account
 
 * 400 (accounts not found)
 
-| If there are no more accounts or there aren't any accounts for the public key, it returns ``400``.
+| If the public key is invalid(for example, wrong format), it returns ``400``.
 
 .. code-block:: json
 
@@ -1943,7 +1943,7 @@ Currency
 /currency
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-* It returns all currency id's in the network.
+* It returns all currency ids in the network.
 
 +----------------------------------+--------+
 | PATH                             | METHOD |
