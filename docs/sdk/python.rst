@@ -8,10 +8,11 @@ Python
 
 * Mitum Currency
 * Mitum Blocksign
+* Mitum Blockcity
 
 | Note that this document introduces how to create operations only for Mitum Currency.
 
-| If you would like to check the way to create operations for Mitum Blocksign and the detail explanation for Mitum Currency, please refer to README of `mitum-py-util <https://github.com/ProtoconNet/mitum-py-util>`_.
+| If you would like to check the way to create operations for Mitum Blocksign / Blockcity and the detail explanation for Mitum Currency, please refer to README of `mitum-py-util <https://github.com/ProtoconNet/mitum-py-util>`_.
 
 ---------------------------------------------------
 Get Started
@@ -581,8 +582,9 @@ Generator
 
 * For **Mitum Currency**, use ``Generator.currency``.
 * For **Mitum Blocksign**, use ``Generator.blockSign``.
+* For **Mitum Blockcity**, use ``Genrator.blockCity``.
 
-| For details of generating operations for **Mitum Blocksign**. refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_.
+| For details of generating operations for **Mitum Blocksign** and **Mitum Blockcity**. refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_.
 
 .. code-block:: python
 
@@ -591,12 +593,13 @@ Generator
     generator = Generator('mitum')
     currencyGenerator = generator.currency
     blockSignGenerator = generator.blockSign
+    blockCityGenerator = generator.blockCity
 
 | All methods of ``Generator`` provides are,
 
 .. code-block:: python
 
-    /* For Mitum Currency */
+    # For Mitum Currency
     Generator.currency.key(key, weight)
     Generator.currency.amount(amount, currencyId)
     Generator.currency.createKeys(keys, threshold)
@@ -607,13 +610,27 @@ Generator
     Generator.currency.createKeyUpdaterFact(target, cid, keys)
     Generator.currency.createTransfersFact(sender, items)
 
-    /* For Mitum Blocksign */
+    # For Mitum Blocksign
     Generator.blockSign.createCreateDocumentsItem(filehash, did, signcode, title, size, cid, signers, signcodes)
     Generator.blockSign.createSignDocumentsItem(owner, documentid, cid)
     Generator.blockSign.createTransferDocumentsItem(owner, receiver, documentid, cid)
     Generator.blockSign.createBlockSignFact(operationType, sender, itemList)
 
-    /* Common */
+    # For Mitum Blockcity
+    Generator.blockCity.candidate(address, nickname, manifest, count)
+    Generator.blockCity.info(docType, documentId)
+    Generator.blockCity.userStatistics(hp, strength, agility, dexterity, charisma, intelligence, vital)
+    Generator.blockCity.userDocument(info, owner, gold, bankGold, userStatistics)
+    Generator.blockCity.landDocument(info, owner, address, area, renter, account, rentDate, period)
+    Generator.blockCity.voteDocument(info, owner, round, endVoteTime, candidates, bossName, account, termofoffice)
+    Generator.blockCity.historyDocument(info, owner, name, account, date, usage, application)
+    Generator.blockCity.createDocumentsItem(document, currencyId)
+    Generator.blockCity.updateDocumentsItem(document, currencyId)
+    Generator.blockCity.createCreateDocumentsFact(sender, items)
+    Generator.blockCity.createUpdateDocumentsFact(sender, items)
+
+
+    # Common
     Generator.createOperation(fact, memo)
     Generator.createSeal(signKey, operations)
 

@@ -65,4 +65,4 @@ Summary
 
 | If necessary, refer to `Mitum Currency Digest API Docs <https://rapidoc.test.protocon.network/>`_ for details.
 
-| This document doesn't provide any information of APIs for Mitum Blocksign. See `Mitum Blocksign Digest API Docs <https://rapidoc.blocksign.protocon.network>`_ for Mitum Blocksign. 
+| This document doesn't provide any information of APIs for Mitum Blocksign or Mitum Blockcity. See `Mitum Blocksign Digest API Docs <https://rapidoc.blocksign.protocon.network>`_ for Mitum Blocksign. 

@@ -11,7 +11,7 @@ Javascript
 
 | Note that this document introduces how to create operations only for Mitum Currency.
 
-| If you would like to check the way to create operations for Mitum Blocksign and the detail explanation for Mitum Currency, please refer to README of `mitum-js-util <https://github.com/ProtoconNet/mitum-js-util>`_.
+| If you would like to check the way to create operations for Mitum Blocksign / Mitum BlockCity and the detail explanation for Mitum Currency, please refer to README of `mitum-js-util <https://github.com/ProtoconNet/mitum-js-util>`_.
 
 ---------------------------------------------------
 Get Started
@@ -621,7 +621,7 @@ Generator
 * For **Mitum Currency**, use ``Generator.currency``.
 * For **Mitum Blocksign**, use ``Generator.blockSign``.
 
-| For details of generating operations for **Mitum Blocksign**. refer to `README <https://github.com/ProtoconNet/mitum-js-util/blob/master/README.md>`_.
+| For details of generating operations for **Mitum Blocksign** and **Mitum BlockCity**, refer to `README <https://github.com/ProtoconNet/mitum-js-util/blob/master/README.md>`_.
 
 .. code-block:: javascript
 
@@ -632,6 +632,7 @@ Generator
 
     const currencyGenerator = generator.currency
     const blocksignGenerator = generator.blockSign
+    const blockcityGenerator = generator.blockCity
 
 | All methods of ``Generator`` provides are,
 
@@ -653,6 +654,17 @@ Generator
     Generator.blockSign.createSignDocumentsItem(owner, did, cid)
     Generator.blockSign.createTransferDocumentsItem(owner, receiver, did, cid)
     Generator.blockSign.createBlockSignFact(factType, sender, items)
+    Generator.blockCity.candidate(address, nickname, manifest, count)
+    Generator.blockCity.info(docType, documentId)
+    Generator.blockCity.userStatistics(hp, strength, agility, dexterity, charisma intelligence, vital)
+    Generator.blockCity.userDocument(info, owner, gold, bankGold, userStatistics)
+    Generator.blockCity.landDocument(info, owner, address, area, renter, account, rentDate, period)
+    Generator.blockCity.voteDocument(info, owner, round, endTime, candidates, bossName, account, office)
+    Generator.blockCity.historyDocument(info, owner, name, account, date, usage, application)
+    Generator.blockCity.getCreateDocumentsItem(document, currencyId)
+    Generator.blockCity.getUpdateDocumentsItem(document, currencyId)
+    Generator.blockCity.getCreateDocumentsFact(sender, items)
+    Generator.blockCity.getUpdateDocumentsFact(sender, items)
 
     /* Common */
     Generator.createOperation(fact, memo)
