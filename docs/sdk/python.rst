@@ -7,12 +7,11 @@ Python
 | Support models are,
 
 * Mitum Currency
-* Mitum Blocksign
-* Mitum Blockcity
+* Mitum Document
 
 | Note that this document introduces how to create operations only for Mitum Currency.
 
-| If you would like to check the way to create operations for Mitum Blocksign / Blockcity and the detail explanation for Mitum Currency, please refer to README of `mitum-py-util <https://github.com/ProtoconNet/mitum-py-util>`_.
+| If you would like to check the way to create operations for Mitum Document and the detail explanation for Mitum Currency, please refer to README of `mitum-py-util <https://github.com/ProtoconNet/mitum-py-util>`_.
 
 ---------------------------------------------------
 Get Started
@@ -92,7 +91,7 @@ Create Generator
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | Most of elements and factors for an operation are created by ``Generator``.
-| For Mitum Currency, use ``Generator.currency``.
+| For Mitum Currency, use ``Generator.mc``.
 
 | When declare a ``Generator``, ``network id`` should be provided.
 | ``network id`` is up to each network.
@@ -105,7 +104,7 @@ Create Generator
 
     networkId = 'mitum'
     generator = Generator('mitum')
-    currencyGenerator = generator.currency
+    currencyGenerator = generator.mc
 
 | For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
 
@@ -141,26 +140,26 @@ Create Operation Item
 
     key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50) # key(public key, weight)
     key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50)
-    keys = currencyGenerator.createKeys([key1, key2], 100) # createKeys(keyList, threshold)
+    keys = currencyGenerator.keys([key1, key2], 100) # keys(keyList, threshold)
 
     amount1 = currencyGenerator.amount(10000, 'MCC') # amount(amount, currency id)
     amount1 = currencyGenerator.amount(20000, 'PEN')
-    amounts = currencyGenerator.createAmounts([amount]) # createAmounts(amountList)
+    amounts = currencyGenerator.amounts([amount]) # amounts(amountList)
 
-    createAccountsItem = currencyGenerator.createCreateAccountsItem(keys, amounts)
+    createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts)
 
-* First, create each key by ``Generator.currency.key(public key, weight)``.
-* Second, combine all keys with account threshold by ``Generator.currency.createKeys(key list, threshold)``.
-* Third, create each amount by ``Generator.currency.amount(amount, currencyId)``.
-* Forth, combine all amounts by ``Generator.currency.createAmounts(amount list)``.
-* Finally, create an item by ``Generator.currency.createCreateAccountsItem(keys, amounts)``
+* First, create each key by ``Generator.mc.key(public key, weight)``.
+* Second, combine all keys with account threshold by ``Generator.mc.keys(key list, threshold)``.
+* Third, create each amount by ``Generator.mc.amount(amount, currencyId)``.
+* Forth, combine all amounts by ``Generator.mc.amounts(amount list)``.
+* Finally, create an item by ``Generator.mc.getCreateAccountsItem(keys, amounts)``
 
 | Of course you can customize the content of items by following constrains.
 
 .. code-block:: none
 
-    - `Keys` created by `createKeys` can contain up to 10 key pairs.
-    - `Amounts` created by `createAmounts` can contain up to 10 amount pairs.
+    - `Keys` created by `keys` can contain up to 10 key pairs.
+    - `Amounts` created by `amounts` can contain up to 10 amount pairs.
     - Moreover, a `fact` can contain multiple items. The number of items in a fact is up to 10, either.
 
 Create Operation Fact
@@ -186,9 +185,9 @@ Create Operation Fact
 .. code-block:: python
 
     senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca" # sender's account address; replace with your address
-    createAccountsFact = currencyGenerator.createCreateAccountsFact(senderAddress, [createAccountsItem]) # createCreateAccountsFact(sender's address, item list)
+    createAccountsFact = currencyGenerator.getCreateAccountsFact(senderAddress, [createAccountsItem]) # createCreateAccountsFact(sender's address, item list)
 
-| If you want to create fact with multiple items, put them all in item list of ``Generator.currency.createCreateAccountsFact(sender's address, item list)``  as an array.
+| If you want to create fact with multiple items, put them all in item list of ``Generator.mc.getCreateAccountsFact(sender's address, item list)``  as an array.
 
 Create Operation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -211,7 +210,7 @@ Create Operation
 
     senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr" # sender's private key; replace with your private key
     
-    createAccounts = generator.createOperation(createAccountsFact, "") # createOperation(fact, memo)
+    createAccounts = generator.getOperation(createAccountsFact, "") # getOperation(fact, memo)
     createAccounts.addFactSign(senderPrivateKey); # addFactSign(private key) add fact signature to fact_signs 
 
 | Use just ``Generator.createOperation(fact, memo)`` for create operations, not ``Generator.currency.createOperation(fact, memo)``.
@@ -240,9 +239,9 @@ Create Seal
     signKey = "L1V19fBjhnxNyfuXLWw6Y5mjFSixzdsZP4obkXEERskGQNwSgdm1mpr"
 
     operations = [createAccounts]
-    seal = generator.createSeal(signKey, operations)
+    seal = generator.getSeal(signKey, operations)
 
-| Like ``createOperation``, use ``Generator.createSeal(signer, operation list)``.
+| Like ``getOperation``, use ``Generator.getSeal(signer, operation list)``.
 
 | Put all operations to wrap in *operation list*.
 
@@ -277,18 +276,18 @@ Create Account
     senderAddress = "5fbQg8K856KfvzPiGhzmBMb6WaL5AsugUnfutgmWECPbmca"
 
     generator = Generator('mitum')
-    gn = generator.currency
+    gn = generator.mc
 
     key = gn.key("2177RF13ZZXpdE1wf7wu5f9CHKaA2zSyLW5dk18ExyJ84mpu", 100)
-    keys = gn.createKeys([key], 100)
+    keys = gn.keys([key], 100)
 
     amount = gn.amount(100, 'MCC')
-    amounts = gn.createAmounts([amount])
+    amounts = gn.amounts([amount])
 
-    createAccountsItem = gn.createCreateAccountsItem(keys, amounts)
-    createAccountsFact = gn.createCreateAccountsFact(srcAddr, [createAccountsItem])
+    createAccountsItem = gn.getCreateAccountsItem(keys, amounts)
+    createAccountsFact = gn.getCreateAccountsFact(srcAddr, [createAccountsItem])
 
-    createAccounts = generator.createOperation(createAccountsFact, "")
+    createAccounts = generator.getOperation(createAccountsFact, "")
     createAccounts.addFactSign(srcPriv)
 
 | The detailed explanation was omitted. See at the start of 'Make Your First Operation'.
@@ -327,15 +326,15 @@ Key Updater
     targetAddress = "JDhSSB3CpRjwM8aF2XX23nTpauv9fLhxTjWsQRm9cJ7umca"
 
     generator = Generator('mitum')
-    gn = generator.currency
+    gn = generator.mc
 
     key1 = gn.key("22ndFZw57ax28ydC3ZxzLJMNX9oMSqAfgauyWhC17pxDpmpu", 50)
     key2 = gn.key("22wD5RWsRFAr8mHkYmmyUDzKf6VBNgjHcgc3YhKxCvrZDmpu", 50)
-    keys = gn.createKeys([key1, key2], 100)
+    keys = gn.keys([key1, key2], 100)
 
-    keyUpdaterFact = gn.createKeyUpdaterFact(targetAddress, keys, "MCC") # createKeyUpdaterFact(target address, new keys, currency id for fee)
+    keyUpdaterFact = gn.getKeyUpdaterFact(targetAddress, keys, "MCC") # getKeyUpdaterFact(target address, new keys, currency id for fee)
 
-    keyUpdater = generator.createOperation(keyUpdaterFact, "")
+    keyUpdater = generator.getOperation(keyUpdaterFact, "")
     keyUpdater.addFactSign(targetPrivateKey)
 
 * **After updating keys of the account, the keys used before becomes useless. You should sign operation with private keys of new keypairs of the account.**
@@ -372,7 +371,7 @@ Transfer
     from mitumc import Generator
 
     generator = Generator('mitum')
-    gn = generator.currency
+    gn = generator.mc
 
     senderPrivateKey = "KzdeJMr8e2fbquuZwr9SEd9e1ZWGmZEj96NuAwHnz7jnfJ7FqHQBmpr"
     senderAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca"
@@ -380,15 +379,15 @@ Transfer
 
     amount = gn.amount(1000000, 'MCC')
     amount = gn.amount(15000, 'PEN')
-    amounts = gn.createAmounts([amount1, amount2])
+    amounts = gn.amounts([amount1, amount2])
 
-    transfersItem = gn.createTransfersItem(receiverAddress, amounts) # createTransfersItem(receiver address, amounts)
-    transfersFact = gn.createTransfersFact(senderAddress, [transfersItem]) # createTransfersFact(sender addrewss, item list)
+    transfersItem = gn.getTransfersItem(receiverAddress, amounts) # getTransfersItem(receiver address, amounts)
+    transfersFact = gn.getTransfersFact(senderAddress, [transfersItem]) # getTransfersFact(sender addrewss, item list)
 
-    transfers = generator.createOperation(transfersFact, "")
+    transfers = generator.getOperation(transfersFact, "")
     transfers.addFactSign(senderPrivateKey)  
 
-| There are other operations that **mitum-py-util** supports, like operations of *Mitum Blocksign*, but this document doesn't provide examples of those operations.
+| There are other operations that **mitum-py-util** supports, like operations of *Mitum Document*, but this document doesn't provide examples of those operations.
 | Refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_ if necessary.
 
 ---------------------------------------------------
@@ -557,7 +556,7 @@ Get Account Address with Keys
 
     from mitumc import Generator
 
-    gn = Generator('mitum').currency
+    gn = Generator('mitum').mc
 
     pub1 = "vmk1iprMrs8V1NkA9DsSL3XQNnUW9SmFL5RCVJC24oFYmpu"
     pub2 = "29BQ8gcVfJd5hPZCKj335WSe4cyDe7TGrjam7fTrkYNunmpu"
@@ -567,7 +566,7 @@ Get Account Address with Keys
     key2 = gn.key(pub2, 30)
     key3 = gn.key(pub3, 30)
 
-    keys = gn.createKeys([key1, key2, key3], 100)
+    keys = gn.keys([key1, key2, key3], 100)
     address = keys.address # your address
 
 Major Classes
@@ -580,59 +579,57 @@ Generator
 
 | Before you use ``Generator``, ``network id`` must be set.
 
-* For **Mitum Currency**, use ``Generator.currency``.
-* For **Mitum Blocksign**, use ``Generator.blockSign``.
-* For **Mitum Blockcity**, use ``Genrator.blockCity``.
+* For **Mitum Currency**, use ``Generator.mc``.
+* For **Mitum Document**, use ``Generator.md``.
 
-| For details of generating operations for **Mitum Blocksign** and **Mitum Blockcity**. refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_.
+| For details of generating operations for **Mitum Document**. refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_.
 
 .. code-block:: python
 
     from mitumc import Generator
 
     generator = Generator('mitum')
-    currencyGenerator = generator.currency
-    blockSignGenerator = generator.blockSign
-    blockCityGenerator = generator.blockCity
+    currencyGenerator = generator.mc
+    documentGenerator = generator.md
 
 | All methods of ``Generator`` provides are,
 
 .. code-block:: python
 
     # For Mitum Currency
-    Generator.currency.key(key, weight)
-    Generator.currency.amount(amount, currencyId)
-    Generator.currency.createKeys(keys, threshold)
-    Generator.currency.createAmounts(amounts) 
-    Generator.currency.createCreateAccountsItem(keys, amounts)
-    Generator.currency.createTransfersItem(receiver, amoutns)
-    Generator.currency.createCreateAccountsFact(sender, items)
-    Generator.currency.createKeyUpdaterFact(target, cid, keys)
-    Generator.currency.createTransfersFact(sender, items)
+    Generator.mc.key(key, weight) # 1 <= $weight <= 100
+    Generator.mc.amount(currencyId, amount) 
+    Generator.mc.keys(keys, threshold) # 1 <= $threshold <= 100
+    Generator.mc.amounts(amounts) 
+    Generator.mc.getCreateAccountsItem(keys, amounts)
+    Generator.mc.getTransfersItem(receiver, amounts)
+    Generator.mc.getCreateAccountsFact(sender, items)
+    Generator.mc.getKeyUpdaterFact(target, currencyId, keys)
+    Generator.mc.getTransfersFact(sender, items)
 
-    # For Mitum Blocksign
-    Generator.blockSign.createCreateDocumentsItem(filehash, did, signcode, title, size, cid, signers, signcodes)
-    Generator.blockSign.createSignDocumentsItem(owner, documentid, cid)
-    Generator.blockSign.createTransferDocumentsItem(owner, receiver, documentid, cid)
-    Generator.blockSign.createBlockSignFact(operationType, sender, itemList)
+    # For Mitum Document
+    Generator.md.getCreateDocumentsItem(document, currencyId)
+    Generator.md.getUpdateDocumentsItem(document, currencyId)
+    Generator.md.getCreateDocumentsFact(sender, items)
+    Generator.md.getUpdateDocumentsFact(sender, items)
 
-    # For Mitum Blockcity
-    Generator.blockCity.candidate(address, nickname, manifest, count)
-    Generator.blockCity.info(docType, documentId)
-    Generator.blockCity.userStatistics(hp, strength, agility, dexterity, charisma, intelligence, vital)
-    Generator.blockCity.userDocument(info, owner, gold, bankGold, userStatistics)
-    Generator.blockCity.landDocument(info, owner, address, area, renter, account, rentDate, period)
-    Generator.blockCity.voteDocument(info, owner, round, endVoteTime, candidates, bossName, account, termofoffice)
-    Generator.blockCity.historyDocument(info, owner, name, account, date, usage, application)
-    Generator.blockCity.createDocumentsItem(document, currencyId)
-    Generator.blockCity.updateDocumentsItem(document, currencyId)
-    Generator.blockCity.createCreateDocumentsFact(sender, items)
-    Generator.blockCity.createUpdateDocumentsFact(sender, items)
+    # For Blocksign
+    Generator.md.bs.user(address, signcode, signed)
+    Generator.md.bs.document(documentId, owner, fileHash, creator, title, size, signers)
+    Generator.md.bs.getSignDocumentsItem(documentId, owner, currencyId)
+    Generator.md.bs.getSignDocumentsFact(sender, items)
 
+    # For Blockcity
+    Generator.md.bc.candidate(address, nickname, manifest, count)
+    Generator.md.bc.userStatistics(hp, strength, agility, dexterity, charisma intelligence, vital)
+    Generator.md.bc.userDocument(documentId, owner, gold, bankGold, userStatistics)
+    Generator.md.bc.landDocument(documentId, owner, address, area, renter, account, rentDate, period)
+    Generator.md.bc.voteDocument(documentId, owner, round, endTime, candidates, bossName, account, office)
+    Generator.md.bc.historyDocument(documentId, owner, name, account, date, usage, application)
 
     # Common
-    Generator.createOperation(fact, memo)
-    Generator.createSeal(signKey, operations)
+    Generator.getOperation(fact, memo)
+    Generator.getSeal(signKey, operations)
 
 Signer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -666,12 +663,12 @@ JSONParser
     # ... refer to above `Make Your First Operation`
     # ... suppose you have already made operations - createAccount, keyUpdater, transfer and a seal - seal
 
-    JSONParser.toJSONString(createAccount.dict()) # print operation createAccount in JSON
-    JSONParser.toJSONString(keyUpdater.dict()) # print operation keyUpdater in JSON
-    JSONParser.toJSONString(transfer.dict()) # print operation transfer in JSON
-    JSONParser.toJSONString(seal) # print seal seal in JSON
+    JSONParser.toString(createAccount.dict()) # print operation createAccount in JSON
+    JSONParser.toString(keyUpdater.dict()) # print operation keyUpdater in JSON
+    JSONParser.toString(transfer.dict()) # print operation transfer in JSON
+    JSONParser.toString(seal) # print seal seal in JSON
 
-    JSONParser.generateFile(createAccount.dict(), 'createAccount.json') # generateFile(dict object, file path)
-    JSONParser.generateFile(keyUpdater.dict(), 'keyUpdater.json')
-    JSONParser.generateFile(transfer.dict(), 'transfer.json')
-    JSONParser.generateFile(seal, 'seal.json')
+    JSONParser.toFile(createAccount.dict(), 'createAccount.json') # toFile(dict object, file path)
+    JSONParser.toFile(keyUpdater.dict(), 'keyUpdater.json')
+    JSONParser.toFile(transfer.dict(), 'transfer.json')
+    JSONParser.toFile(seal, 'seal.json')

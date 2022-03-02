@@ -7,11 +7,11 @@ Javascript
 | Support models are,
 
 * Mitum Currency
-* Mitum Blocksign
+* Mitum Document
 
 | Note that this document introduces how to create operations only for Mitum Currency.
 
-| If you would like to check the way to create operations for Mitum Blocksign / Mitum BlockCity and the detail explanation for Mitum Currency, please refer to README of `mitum-js-util <https://github.com/ProtoconNet/mitum-js-util>`_.
+| If you would like to check the way to create operations for Mitum Document and the detail explanation for Mitum Currency, please refer to README of `mitum-js-util <https://github.com/ProtoconNet/mitum-js-util>`_.
 
 ---------------------------------------------------
 Get Started
@@ -106,7 +106,7 @@ Create Generator
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | Most of elements and factors for an operation are created by ``Generator``.
-| For Mitum Currency, use ``Generator.currency``.
+| For Mitum Currency, use ``Generator.mc``.
 
 | When declare a ``Generator``, ``network id`` should be provided.
 | ``network id`` is up to each network.
@@ -119,7 +119,7 @@ Create Generator
 
     const networkId = 'mitum'
     const generator = new Generator('mitum')
-    const currencyGenerator = generator.currency
+    const currencyGenerator = generator.mc
 
 | For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
 
@@ -156,26 +156,26 @@ Create Operation Item
     const key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50) // key(pub, weight)
     const key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50) // key(pub, weight)
     
-    const keys = currencyGenerator.createKeys([key1, key2], 100) // createKeys([key1, key2], threshold)
+    const keys = currencyGenerator.keys([key1, key2], 100) // createKeys([key1, key2], threshold)
 
     const amount1 = currencyGenerator.amount("10000", "MCC") // amount(amount, currencyId)
     const amount2 = currencyGenerator.amount("20000", "PEN") // amount(amount, currencyId)
-    const amounts = currencyGenerator.createAmounts([amount1, amount2]); // createAmounts([amount1, amount2])
+    const amounts = currencyGenerator.amounts([amount1, amount2]); // createAmounts([amount1, amount2])
 
-    const createAccountsItem = currencyGenerator.createCreateAccountsItem(keys, amounts); // createCreateAccountsItem(keys, amounts)
+    const createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts); // createCreateAccountsItem(keys, amounts)
 
-* First, create each key by ``Generator.currency.key(public key, weight)``.
-* Second, combine all keys with account threshold by ``Generator.currency.createKeys(key list, threshold)``.
-* Third, create each amount by ``Generator.currency.amount(amount, currencyId)``.
-* Forth, combine all amounts by ``Generator.currency.createAmounts(amount list)``.
-* Finally, create an item by ``Generator.currency.createCreateAccountsItem(keys, amounts)``
+* First, create each key by ``Generator.mc.key(public key, weight)``.
+* Second, combine all keys with account threshold by ``Generator.mc.keys(key list, threshold)``.
+* Third, create each amount by ``Generator.mc.amount(amount, currencyId)``.
+* Forth, combine all amounts by ``Generator.mc.amounts(amount list)``.
+* Finally, create an item by ``Generator.mc.getCreateAccountsItem(keys, amounts)``
 
 | Of course you can customize the content of items by following constrains.
 
 .. code-block:: none
 
-    - `Keys` created by `createKeys` can contain up to 10 key pairs.
-    - `Amounts` created by `createAmounts` can contain up to 10 amount pairs.
+    - `Keys` created by `keys` can contain up to 10 key pairs.
+    - `Amounts` created by `amounts` can contain up to 10 amount pairs.
     - Moreover, a `fact` can contain multiple items. The number of items in a fact is up to 10, either.
 
 Create Operation Fact
@@ -201,9 +201,9 @@ Create Operation Fact
 .. code-block:: javascript
 
     const senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca" // sender's account address; replace with your address
-    const createAccountsFact = currencyGenerator.createCreateAccountsFact(senderAddress, [createAccountsItem]) // createCreateAccountsFact(sender's address, item list)
+    const createAccountsFact = currencyGenerator.getCreateAccountsFact(senderAddress, [createAccountsItem]) // getCreateAccountsFact(sender's address, item list)
 
-| If you want to create fact with multiple items, put them all in item list of ``Generator.currency.createCreateAccountsFact(sender's address, item list)`` as an array.
+| If you want to create fact with multiple items, put them all in item list of ``Generator.mc.getCreateAccountsFact(sender's address, item list)`` as an array.
 
 Create Operation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -226,10 +226,10 @@ Create Operation
 
     const senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr" // sender's private key; replace with your private key
     
-    const createAccounts = generator.createOperation(createAccountsFact, "") // createOperation(fact, memo)
+    const createAccounts = generator.getOperation(createAccountsFact, "") // getOperation(fact, memo)
     createAccounts.addSign(senderPrivateKey); // addSign(private key) add fact signature to fact_signs 
 
-| Use just ``Generator.createOperation(fact, memo)`` for create operations, not ``Generator.currency.createOperation(fact, memo)``.
+| Use just ``Generator.getOperation(fact, memo)`` for create operations, not ``Generator.mc.getOperation(fact, memo)``.
 
 | Be sad, an operation can contain only one fact.
 
@@ -255,9 +255,9 @@ Create Seal
     const anyPrivateKey = "KyK7aMWCbMtCJcneyBZXGG6Dpy2jLRYfx3qp7kxXJjLFnppRYt7wmpr"
 
     const operations = [createAccounts]
-    const seal = generator.createSeal(anyPrivateKey, operations)
+    const seal = generator.getSeal(anyPrivateKey, operations)
 
-| Like ``createOperation``, use ``Generator.createSeal(signer, operation list)``.
+| Like ``getOperation``, use ``Generator.getSeal(signer, operation list)``.
 
 | Put all operations to wrap in *operation list*.
 
@@ -290,25 +290,25 @@ Create Account
 
     const networkId = 'mitum'
     const generator = new Generator('mitum')
-    const currencyGenerator = generator.currency
+    const currencyGenerator = generator.mc
 
     const key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50)
     const key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50)
     
-    const keys = currencyGenerator.createKeys([key1, key2], 100)
+    const keys = currencyGenerator.keys([key1, key2], 100)
 
     const amount1 = currencyGenerator.amount("10000", "MCC")
     const amount2 = currencyGenerator.amount("20000", "PEN")
-    const amounts = currencyGenerator.createAmounts([amount1, amount2]);
+    const amounts = currencyGenerator.amounts([amount1, amount2]);
 
-    const createAccountsItem = currencyGenerator.createCreateAccountsItem(keys, amounts);
+    const createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts);
 
     const senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
-    const createAccountsFact = currencyGenerator.createCreateAccountsFact(senderAddress, [createAccountsItem])
+    const createAccountsFact = currencyGenerator.getOreateAccountsFact(senderAddress, [createAccountsItem])
 
     const senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr"
     
-    const createAccounts = generator.createOperation(createAccountsFact, "")
+    const createAccounts = generator.getOperation(createAccountsFact, "")
     createAccounts.addSign(senderPrivateKey);
 
 | The detailed explanation was omitted. See at the start of 'Make Your First Operation'.
@@ -354,9 +354,9 @@ Key Updater
     const newPub2 = currencyGenerator.key("22wD5RWsRFAr8mHkYmmyUDzKf6VBNgjHcgc3YhKxCvrZDmpu", 100)
     const newKeys = currencyGenerator.createKeys([newPub1, newPub2], 100)
 
-    const keyUpdaterFact = currencyGenerator.createKeyUpdaterFact(targetAddress, "MCC", newKeys) // createKeyUpdaterFact(target address, currency for fee, new keys)
+    const keyUpdaterFact = currencyGenerator.getKeyUpdaterFact(targetAddress, "MCC", newKeys) // getKeyUpdaterFact(target address, currency for fee, new keys)
     
-    const keyUpdater = generator.createOperation(keyUpdaterFact, "")
+    const keyUpdater = generator.getOperation(keyUpdaterFact, "")
     keyUpdater.addSign(targetPrivateKey) // only one signature since the account is single-sig
 
 * **After updating keys of the account, the keys used before becomes useless. You should sign operation with private keys of new keypairs of the account.**
@@ -402,15 +402,15 @@ Transfer
 
     const amount1 = currencyGenerator.amount("1000000", "MCC")
     const amount2 = currencyGenerator.amount("15000", "PEN")
-    const amounts = currencyGenerator.createAmounts([amount1, amount2])
+    const amounts = currencyGenerator.amounts([amount1, amount2])
 
-    const transfersItem = currencyGenerator.createTransfersItem(receiverAddress, amounts) // createTransfersItem(receiver address, amounts)
-    const transfersFact = currencyGenerator.createTransfersFact(senderAddress, [transfersItem]) // createTransfersFact(sender address, item list)
+    const transfersItem = currencyGenerator.getTransfersItem(receiverAddress, amounts) // getTransfersItem(receiver address, amounts)
+    const transfersFact = currencyGenerator.getTransfersFact(senderAddress, [transfersItem]) // getTransfersFact(sender address, item list)
     
-    const transfers = generator.createOperation(transfersFact, "")
+    const transfers = generator.getOperation(transfersFact, "")
     transfers.addSign(senderPrivateKey) // suppose sender is single-sig    
 
-| There are other operations that **mitum-js-util** supports, like operations of *Mitum Blocksign*, but this document doesn't provide examples of those operations.
+| There are other operations that **mitum-js-util** supports, like operations of *Mitum Document*, but this document doesn't provide examples of those operations.
 | Refer to `README <https://github.com/ProtoconNet/mitum-js-util/blob/master/README.md>`_ if necessary.
 
 ---------------------------------------------------
@@ -598,13 +598,13 @@ Get Account Address with Keys
 
     import { Generator } from 'mitumc'
 
-    const gn = new Generator('mitum').currency
+    const gn = new Generator('mitum').mc
 
     const key1 = gn.key("vmk1iprMrs8V1NkA9DsSL3XQNnUW9SmFL5RCVJC24oFYmpu", 40)
     const key2 = gn.key("29BQ8gcVfJd5hPZCKj335WSe4cyDe7TGrjam7fTrkYNunmpu", 30)
     const key3 = gn.key("uJKiGLBeXF3BdaDMzKSqJ4g7L5kAukJJtW3uuMaP1NLumpu", 30)
 
-    const keys = gn.createKeys([key1, key2, key3], 100)
+    const keys = gn.keys([key1, key2, key3], 100)
 
     const address = keys.address // this is what you want to get!
 
@@ -618,10 +618,10 @@ Generator
 
 | Before you use ``Generator``, ``network id`` must be set.
 
-* For **Mitum Currency**, use ``Generator.currency``.
-* For **Mitum Blocksign**, use ``Generator.blockSign``.
+* For **Mitum Currency**, use ``Generator.mc``.
+* For **Mitum Document**, use ``Generator.md``.
 
-| For details of generating operations for **Mitum Blocksign** and **Mitum BlockCity**, refer to `README <https://github.com/ProtoconNet/mitum-js-util/blob/master/README.md>`_.
+| For details of generating operations for **Mitum Document**, refer to `README <https://github.com/ProtoconNet/mitum-js-util/blob/master/README.md>`_.
 
 .. code-block:: javascript
 
@@ -630,45 +630,47 @@ Generator
     const networkId = 'mitum'
     const generator = new Generator(networkId)
 
-    const currencyGenerator = generator.currency
-    const blocksignGenerator = generator.blockSign
-    const blockcityGenerator = generator.blockCity
+    const currencyGenerator = generator.mc
+    const documentGenerator = generator.md
 
 | All methods of ``Generator`` provides are,
 
 .. code-block:: javascript
 
     /* For Mitum Currency */
-    Generator.currency.key(key, weight) // 1 <= $weight <= 100
-    Generator.currency.amount(big, cid) // typeof $big === "string" 
-    Generator.currency.createKeys(keys, threshold) // 1 <= $threshold <= 100
-    Generator.currency.createAmounts(amounts) 
-    Generator.currency.createCreateAccountsItem(keys_o, amounts)
-    Generator.currency.createTransfersItem(receiver, amounts)
-    Generator.currency.createCreateAccountsFact(sender, items)
-    Generator.currency.createKeyUpdaterFact(target, cid, keys_o)
-    Generator.currency.createTransfersFact(sender, items)    
+    Generator.mc.key(key, weight) // 1 <= $weight <= 100
+    Generator.mc.amount(currencyId, amount) // typeof $amount === "string" 
+    Generator.mc.keys(keys, threshold) // 1 <= $threshold <= 100
+    Generator.mc.amounts(amounts) 
+    Generator.mc.getCreateAccountsItem(keys, amounts)
+    Generator.mc.getTransfersItem(receiver, amounts)
+    Generator.mc.getCreateAccountsFact(sender, items)
+    Generator.mc.getKeyUpdaterFact(target, currencyId, keys)
+    Generator.mc.getTransfersFact(sender, items)    
 
-    /* For Mitum Blocksign */
-    Generator.blockSign.createCreateDocumentsItem(fileHash, did, signcode, title, size, cid, signers, signcodes)
-    Generator.blockSign.createSignDocumentsItem(owner, did, cid)
-    Generator.blockSign.createTransferDocumentsItem(owner, receiver, did, cid)
-    Generator.blockSign.createBlockSignFact(factType, sender, items)
-    Generator.blockCity.candidate(address, nickname, manifest, count)
-    Generator.blockCity.info(docType, documentId)
-    Generator.blockCity.userStatistics(hp, strength, agility, dexterity, charisma intelligence, vital)
-    Generator.blockCity.userDocument(info, owner, gold, bankGold, userStatistics)
-    Generator.blockCity.landDocument(info, owner, address, area, renter, account, rentDate, period)
-    Generator.blockCity.voteDocument(info, owner, round, endTime, candidates, bossName, account, office)
-    Generator.blockCity.historyDocument(info, owner, name, account, date, usage, application)
-    Generator.blockCity.getCreateDocumentsItem(document, currencyId)
-    Generator.blockCity.getUpdateDocumentsItem(document, currencyId)
-    Generator.blockCity.getCreateDocumentsFact(sender, items)
-    Generator.blockCity.getUpdateDocumentsFact(sender, items)
+    /* For Mitum Document */
+    Generator.md.getCreateDocumentsItem(document, currencyId)
+    Generator.md.getUpdateDocumentsItem(document, currencyId)
+    Generator.md.getCreateDocumentsFact(sender, items)
+    Generator.md.getUpdateDocumentsFact(sender, items)
+
+    /* For Blocksign*/
+    Generator.md.bs.user(address, signcode, signed)
+    Generator.md.bs.document(documentId, owner, fileHash, creator, title, size, signers)
+    Generator.md.bs.getSignDocumentsItem(documentId, owner, currencyId)
+    Generator.md.bs.getSignDocumentsFact(sender, items)
+
+    /* For Blockcity */
+    Generator.md.bc.candidate(address, nickname, manifest, count)
+    Generator.md.bc.userStatistics(hp, strength, agility, dexterity, charisma intelligence, vital)
+    Generator.md.bc.userDocument(documentId, owner, gold, bankGold, userStatistics)
+    Generator.md.bc.landDocument(documentId, owner, address, area, renter, account, rentDate, period)
+    Generator.md.bc.voteDocument(documentId, owner, round, endTime, candidates, bossName, account, office)
+    Generator.md.bc.historyDocument(documentId, owner, name, account, date, usage, application)
 
     /* Common */
-    Generator.createOperation(fact, memo)
-    Generator.createSeal(signKey, operations)
+    Generator.getOperation(fact, memo)
+    Generator.getSeal(signKey, operations)
 
 Signer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -698,7 +700,7 @@ JSONParser
     import { Generator, JSONParser } from 'mitumc'
 
     const generator = new Generator('mitum')
-    const currencyGenerator = generator.currency
+    const currencyGenerator = generator.mc
 
     // ... omitted
     // ... create operations
@@ -710,7 +712,7 @@ JSONParser
     JSONParser.toJSONString(transfer.dict()) // print operation transfer in JSON
     JSONParser.toJSONString(seal) // print seal seal in JSON
 
-    JSONParser.generateFile(createAccount.dict(), 'createAccount.json'); // generateFile(dict object, file path)
-    JSONParser.generateFile(keyUpdater.dict(), 'keyUpdater.json');
-    JSONParser.generateFile(transfer.dict(), 'transfer.json');
-    JSONParser.generateFile(seal, 'seal.json');
+    JSONParser.getFile(createAccount.dict(), 'createAccount.json'); // getFile(dict object, file path)
+    JSONParser.getFile(keyUpdater.dict(), 'keyUpdater.json');
+    JSONParser.getFile(transfer.dict(), 'transfer.json');
+    JSONParser.getFile(seal, 'seal.json');
