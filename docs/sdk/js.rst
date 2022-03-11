@@ -158,15 +158,15 @@ Create Operation Item
     
     const keys = currencyGenerator.keys([key1, key2], 100) // createKeys([key1, key2], threshold)
 
-    const amount1 = currencyGenerator.amount("10000", "MCC") // amount(amount, currencyId)
-    const amount2 = currencyGenerator.amount("20000", "PEN") // amount(amount, currencyId)
+    const amount1 = currencyGenerator.amount("MCC", "10000") // amount(currencyId, amount)
+    const amount2 = currencyGenerator.amount("PEN", "20000") // amount(currencyId, amount)
     const amounts = currencyGenerator.amounts([amount1, amount2]); // createAmounts([amount1, amount2])
 
     const createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts); // createCreateAccountsItem(keys, amounts)
 
 * First, create each key by ``Generator.mc.key(public key, weight)``.
 * Second, combine all keys with account threshold by ``Generator.mc.keys(key list, threshold)``.
-* Third, create each amount by ``Generator.mc.amount(amount, currencyId)``.
+* Third, create each amount by ``Generator.mc.amount(currencyId, amount)``.
 * Forth, combine all amounts by ``Generator.mc.amounts(amount list)``.
 * Finally, create an item by ``Generator.mc.getCreateAccountsItem(keys, amounts)``
 
@@ -297,8 +297,8 @@ Create Account
     
     const keys = currencyGenerator.keys([key1, key2], 100)
 
-    const amount1 = currencyGenerator.amount("10000", "MCC")
-    const amount2 = currencyGenerator.amount("20000", "PEN")
+    const amount1 = currencyGenerator.amount("MCC", "10000")
+    const amount2 = currencyGenerator.amount("PEN", "20000")
     const amounts = currencyGenerator.amounts([amount1, amount2]);
 
     const createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts);
@@ -400,8 +400,8 @@ Transfer
     const senderAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca"
     const receiverAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
 
-    const amount1 = currencyGenerator.amount("1000000", "MCC")
-    const amount2 = currencyGenerator.amount("15000", "PEN")
+    const amount1 = currencyGenerator.amount("MCC", "1000000")
+    const amount2 = currencyGenerator.amount("PEN", "15000")
     const amounts = currencyGenerator.amounts([amount1, amount2])
 
     const transfersItem = currencyGenerator.getTransfersItem(receiverAddress, amounts) // getTransfersItem(receiver address, amounts)
