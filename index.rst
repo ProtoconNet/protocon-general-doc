@@ -12,7 +12,7 @@ Protocon Network
 
 | *ISAAC+*, Protocon's core consensus protocol, is designed for large-scale data processing for use in the industry, and has secured versatility so that it can be used in any area that requires blockchain technology. Based on this, we will promote a protocol-based pure digital economy.
 
-| For more information about Protocon, visit `Protocon <https://protocon.cafe24.com/en/protocon_en/>`_.
+| For more information about Protocon, visit `Protocon <https://protocon.io/>`_.
 
 ---------------------------------------------------
 Contents
