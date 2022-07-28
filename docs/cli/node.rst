@@ -2,7 +2,7 @@
 Node Command
 ===================================================
 
-| ``node`` command initializes node and runs node.
+| The ``node`` command initializes nodes and runs nodes.
 
 | The subcommands of the ``node`` command are as follows.
 
@@ -15,9 +15,9 @@ Node Command
 init
 ---------------------------------------------------
 
-| By ``init`` command, **initialize the node** with the node design file containing the node configuration.
+| The ``init`` command is used for **initializing the node** with the node design file containing the node configuration.
 
-| See :ref:`node init` for a detailed explanation of ``init`` command.
+| See :ref:`node init` for a detailed explanation of the ``init`` command.
 
 .. code-block:: shell
 
@@ -27,9 +27,9 @@ init
 run
 ---------------------------------------------------
 
-| By ``run`` command, **run the node** with the node design file containing the node configuration.
+| The ``run`` command is used for **running the node** with the node design file containing the node configuration.
 
-| See :ref:`node run` for a detailed explanation of ``run`` command.
+| See :ref:`node run` for a detailed explanation of the ``run`` command.
 
 .. code-block:: shell
 
@@ -39,9 +39,9 @@ run
 start-handover
 ---------------------------------------------------
 
-| By ``start-handover`` command, **replace the running node** with another node.
+| The ``start-handover`` command is used for **replacing the running node** with another node.
 
-| See :ref:`node handover` for a detailed explanation of ``start-handover`` command.
+| See :ref:`node handover` for a detailed explanation of the ``start-handover`` command.
 
 .. code-block:: shell
 
@@ -51,7 +51,7 @@ start-handover
 info
 ---------------------------------------------------
 
-| By ``info`` command, **get the information of the remote node** with the node's url.
+| The ``info`` command is used for **getting the information of the remote node** with the node's url.
 
 .. code-block:: shell
 

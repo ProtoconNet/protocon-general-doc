@@ -20,7 +20,7 @@ Node Info
 +=======+========+
 | /     | GET    |
 +-------+--------+
- 
+
 | **Response Example**
 
 * 200
@@ -1417,7 +1417,7 @@ Builder
 
 * 404 (unknown operation)
 
-| If the ``{fact}`` you requests is wrong, it returns ``404``.
+| If the ``{fact}`` you requested is wrong, it returns ``404``.
 
 .. code-block:: json
 
@@ -1558,7 +1558,7 @@ Builder
 
 * 400 (problems in request)
 
-| If the fact message you request with is wrong or not available, it returns ``400``.
+| If the fact message you requested is wrong or not available, it returns ``400``.
 
 .. code-block:: json
 
@@ -1583,8 +1583,8 @@ Builder
 /builder/operation/sign
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-* It returns the operation message with new operation hash.
-* It automatically fills ``hash`` of the operation with a newly generated operation hash.
+* It returns the operation message with a new operation hash.
+* It automatically fills ``hash`` of the operation with the newly generated operation hash.
 * So the request operation message is available even though it doesn't have operation hash.
 
 +----------------------------------+--------+
@@ -1731,8 +1731,8 @@ Builder
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 * It broadcasts a seal or an operation to the network.
-* If it successes to broadcast, it will returns ``200`` with the complete seal json.
-* However, the success broadcasting doesn't asure the success of processing the operation.
+* If broadcast is successful, it returns ``200`` with the complete seal json.
+* However, successful broadcasting doesn't ensure the success of processing the operation.
 
 +----------------------------------+--------+
 | PATH                             | METHOD |
@@ -1743,8 +1743,8 @@ Builder
 | **Request Example**
 
 * This API allows to broadcast both operations and seals.
-* If you request with an operation, it makes new seal containing the operation then broadcasts it.
-* If you request with a seal, it newly signs to the seal and broadcasts it.
+* If the request body is an operation, it makes a new seal containing the operation then broadcasts it.
+* If the request body is a seal, it newly signs to the seal and broadcasts it.
 
 * operation
 
@@ -1988,7 +1988,7 @@ Currency
 /currency/{currency_id}
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-* It returns the currency information of the currency by *currency id*.
+* It returns the information of the currency by *currency id*.
 
 +----------------------------------+--------+
 | PATH                             | METHOD |

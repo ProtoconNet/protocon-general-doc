@@ -4,7 +4,7 @@
 Seal Command
 ===================================================
 
-| ``seal`` command help execute various operations contained in the seal.
+| The ``seal`` command helps execute various operations contained in the seal.
 
 | The subcommands related to **operation** are as follows.
 
@@ -15,7 +15,7 @@ Seal Command
 * ``currency-policy-updater``
 * ``suffrage-inflation``
 
-| ``seal`` command also help create a signature and sends a seal.
+| The ``seal`` command also helps create a signature and sends a seal.
 
 | The subcommands related to **signature generation** and **transmission** are as follows.
 
@@ -23,7 +23,7 @@ Seal Command
 * ``sign``
 * ``sign-fact``
 
-| Whether the operation is successfully processed can be checked through the api.
+| Whether the operation has been successfully processed or not can be checked through the api.
 
 | For more information, please refer to :ref:`confirm success`.
 
@@ -31,7 +31,7 @@ Seal Command
 create-account
 ---------------------------------------------------
 
-| By ``create-account`` command, create an account.
+| The ``create-account`` command is used for creating an account.
 
 .. code-block:: shell
 
@@ -49,7 +49,7 @@ create-account
 
 1. **Create Single Sig Account**
 
-| Here is the account information that we will create.
+| We will create the account according to the following account information.
 
 .. code-block:: none
 
@@ -134,13 +134,13 @@ create-account
 
 .. note::
 
-    * In Mitum Currency, two or more operations signed by one account are not processed in one block.
+    * In Mitum Currency, two or more operations signed by one account cannot be processed in one block.
     * For example, two respective operations that send 5 amount from ``ac0`` to ``ac1`` and ``ac2`` cannot be processed at the same time.
     * In this case, only the operation that arrived first is processed and the rest are ignored.
 
-| Suppose that the sender is trying to create ``ac0`` and ``ac1`` at the same time by only one seal. Then the sender should include items for each ``ac0`` and ``ac1``.
+| Suppose that the sender is trying to create ``ac0`` and ``ac1`` at the same time using only one seal. Then the sender should include items for both ``ac0`` and ``ac1``.
 
-| That means, the sender creates and sends only one operation that creates two account in the seal. It can be processed successfully. **Don't make multiple separate operations which senders are same.**
+| This means that for the operation to be processed successfully, the sender should create and send only one operation that creates two accounts in the seal. **Do not make multiple separate operations with the same sender.**
 
 .. code-block:: none
 
@@ -383,7 +383,7 @@ create-account
 transfer
 ---------------------------------------------------
 
-| By ``transfer`` command, transfer tokens between accounts.
+| The ``transfer`` command is used for transferring tokens between accounts.
 
 .. code-block:: shell
 
@@ -462,9 +462,9 @@ transfer
 key-updater
 ---------------------------------------------------
 
-| By ``key-updater`` command, update the account keys.
+| The ``key-updater`` command is used for updating the account keys.
 
-| Updating account keys to new public keys does not change address.
+| Updating account keys to new public keys does not change the address.
 
 .. code-block:: shell
 
@@ -581,7 +581,7 @@ For more information about account keys, refer to :ref:`multi sig`.
 currency-register
 ---------------------------------------------------
 
-| By ``currency-register`` command, register a new currency token.
+| The ``currency-register`` command is used for registering a new currency token.
 
 .. code-block:: shell
 
@@ -601,11 +601,11 @@ currency-register
     * If the fee policy is fixed, you must set ``–feeer-fixed-receiver=<fee receiver account address>`` and ``–feeer-fixed-amount=<fee amount>`` accordingly.
     * If the fee policy is ratio, then ``–feeer-ratio-receiver=<fee receiver account address>`` and ``–feeer-ratio-ratio=<fee ratio, multifly by operation amount>``,`` –feeer-ratio-min=<minimum fee>``,`` –feeer-ratio-max=<maximum fee>`` must be set.
 
-| When registering a new currency, **the signature of the suffrage nodes participating in consensus exceeds the consensus threshold (67%) to be executed**.
+| When registering a new currency, **the signature of the suffrage nodes participating in consensus must exceed the consensus threshold (67%) to be executed**.
 
 | **EXAMPLE**
 
-| Suppose that we are going to register new currency *MCC2* following below conditions.
+| Suppose that we are going to register a new currency **MCC2** with the following conditions.
 
 .. code-block:: none
 
@@ -643,9 +643,9 @@ currency-register
         | ./mc seal sign-fact $N3_PRV --network-id="$NETWORK_ID" --seal=- \
         | ./mc seal send --network-id="$NETWORK_ID" $AC1_PRV --seal=-
 
-| Each currency has a *zero account* for deposit only. The *zero account* can be used to **burn tokens**. The *zero account* is an account that can only deposit token because the public key is not registered.
+| Each currency has a *zero account* for deposit only that is used to **burn tokens**. The *zero account* is deposit only because the public key is not registered.
 
-| The address of *zero account* has the same format as ``<currency id>-Xmca``. For example, the *zero account* address of PEN currency is ``PEN-Xmca``.
+| The address of the *zero account* has the same format as ``<currency id>-Xmca``. For example, the *zero account* address of PEN currency is ``PEN-Xmca``.
 
 .. code-block:: shell
 
@@ -701,7 +701,7 @@ currency-register
 currency-policy-updater
 ---------------------------------------------------
 
-| By ``currency-policy-updater`` command, update the policy related to currency.
+| The ``currency-policy-updater`` command is used for updating the currency-related policy.
 
 .. code-block:: shell
 
@@ -709,7 +709,7 @@ currency-policy-updater
 
 | First, get the info of the registered currency through API.
 
-| When updating a currency policy, **the signature of the suffrage nodes participating in consensus exceeds the consensus threshold (67%) to be executed**.
+| When updating a currency policy, **the signature of the suffrage nodes participating in consensus must exceed the consensus threshold (67%) to be executed**.
 
 .. code-block:: shell
 
@@ -757,7 +757,7 @@ currency-policy-updater
 
 | **EXAMPLE**
 
-| Suppose that we are going to update policy for *MCC2* following below conditions.
+| Suppose that we are going to update policy for *MCC2* according to the following conditions.
 
 .. code-block:: none
 
@@ -848,7 +848,7 @@ currency-policy-updater
 suffrage-inflation
 ---------------------------------------------------
 
-| By ``suffrage-inflation`` command, make inflation a existed currency token.
+| The ``suffrage-inflation`` command is used for inflating the supply of an existing currency token.
 
 .. code-block:: shell
 
@@ -856,22 +856,22 @@ suffrage-inflation
 
 * ``inflation item``: <receiver-account>,<currency-id>,<inflation-amount>
 
-| There are two processes to register currency in Mitum Currency.
+| There are two processes of registering a currency in Mitum Currency.
 
 * Through initial genesis currency creation 
 * By registering a new currency while the network is alive
 
 | The registered currency has a total supply amount. The Mitum Currency may increase the amount of tokens in addition to the total supply amount.
 
-| When generate new amount, the items that need to be set are as follows.
+| When generating new amounts, the items that need to be set are as follows.
 
 * ``receiver-account`` which receives account of additionally generated tokens.
 
-| When making inflation a currency, **the signature of the suffrage nodes participating in consensus exceeds the consensus threshold (67%) to be executed**.
+| When inflating a currency, **the signature of the suffrage nodes participating in consensus must exceed the consensus threshold (67%) to be executed**.
 
 | **EXAMPLE**
 
-| We are going to make inflation ``MCC`` following below conditions.
+| We are going to inflate the supply of ``MCC`` according to the following conditions.
 
 .. code-block:: none
 
@@ -910,7 +910,7 @@ suffrage-inflation
 send
 ---------------------------------------------------
 
-| By ``send`` command, send a seal.
+| The ``send`` command is used for sending a seal.
 
 .. code-block:: shell
 
@@ -1001,7 +1001,7 @@ send
 sign
 ---------------------------------------------------
 
-| By ``sign`` command, create a signature for a seal.
+| The ``sign`` command is used for creating a signature for a seal.
 
 .. code-block:: shell
 
@@ -1009,7 +1009,7 @@ sign
 
 | **EXAMPLE**
 
-| Before use ``sign`` command, prepare a file, which content is a seal including operations, saved in json format for signature generation.
+| Before using the ``sign`` command, prepare a file containing a seal with operations. The file should be saved in json format for signature generation.
 
 | For example,
 
@@ -1071,7 +1071,7 @@ sign
 
 | Run ``seal sign`` with this json file.
 
-| Then you can get a seal with new seal signature such like, 
+| Then, you can get a seal with a new seal signature, as shown in the following.
 
 .. code-block:: shell
 
@@ -1135,11 +1135,11 @@ sign
 sign-fact
 ---------------------------------------------------
 
-| By ``sign-fact`` command, create signature for operation facts.
+| The ``sign-fact`` command is used for creating signatures for operation facts.
 
 | This command is used to add a fact signature to the operation contained in the seal. You must pass the seal data containing the operation to this command.
 
-| The purpose of use is in the case of an operation created by an account with multisig or when signing of multiple nodes is required such as currency registration.
+| This command is mainly used when an operation is created by an account with multi sig or when signing multiple nodes is required, such as in currency registration.
 
 .. code-block:: shell
 
@@ -1147,7 +1147,7 @@ sign-fact
 
 | **EXAMPLE**
 
-| Here is the example s.t a seal contains a transfer operation for transferring tokens from the multi sig account. It requires two fact signatures, but has only one.
+| Here is an example where a seal contains a transfer operation for transferring tokens from the multi sig account. It requires two fact signatures, but only has one.
 
 .. code-block:: json
 
@@ -1194,7 +1194,7 @@ sign-fact
         ]
     }
 
-| After use ``sign-fact`` to add a fact signature, above json becomes,
+| After using ``sign-fact`` to add a fact signature, the above json becomes,
 
 .. code-block:: shell
 

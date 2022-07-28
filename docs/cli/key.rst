@@ -4,7 +4,7 @@
 Key Command
 ===================================================
 
-| ``key`` command helps create a keypair, get address from keys, and get signature.
+| The ``key`` command creates keypairs, gets addresses from keys, and gets signature.
 
 | The subcommands of the ``key`` command are as follows.
 
@@ -23,12 +23,12 @@ Key Command
 new
 ---------------------------------------------------
 
-| By ``new`` command, **create a new keypair**.
+| The ``new`` is used for **creating a new keypair**.
 
 Random Keypair
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| Create random keypair without any seed.
+| Use the following to create a random keypair without any seed.
 
 .. code-block:: shell
 
@@ -46,7 +46,7 @@ Random Keypair
 Keypair from Seed
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| Keypair from seed. The length of string seed must be longer than or equal to 36.
+| Use the following to create a keypair from a seed. Note that the length of string seed must be longer than or equal to 36.
 
 .. code-block:: shell
 
@@ -65,7 +65,7 @@ Keypair from Seed
 address
 ---------------------------------------------------
 
-| By ``address`` command, generate address from keys.
+| The ``address`` command is used for generating addresses from keys.
 
 | You should prepare (public key, weight) pairs and threshold for the account. Refer to below *Multi Sig Account* for details.
 
@@ -75,7 +75,7 @@ address
 
 | **EXAMPLE**
 
-| When the information of the account is like below,
+| For example, let's say that the information of the account is given by the table below, then the ``address`` command is used as follows.
 
 +---------------+------------------------------------------------------------------+
 | threshold     | 100                                                              |
@@ -88,16 +88,16 @@ address
     $ ./mc key address 100 21Sn1owHXRx336aaerU1WbbKjiZXMcrJsnxBHP9etNx6zmpu,50 utzCefA1Szmmt3rAwqW5yEhxK1x3hG3Y3yThEK3gZmv3mpu,50
     37x8YoAGA93B3HmDVNterRf1NTgz9tfN1gQn4jYuBYCHmca
 
-| **However, you can't get correct address if the keys of the account have updated by key-updater command.** Refer to :ref:`key updater`. 
+| **However, you won't get correct address if the keys of the account have been updated by the key-updater command.** Refer to :ref:`key updater`. 
 
 .. _multi sig:
 
 Multi Sig Account
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-* Account is a data structure that has *currency* and *balance* in Mitum Currency.
-* Account has a unique value called *address* and can be identified through this.
-* Register a public key for user’s *Account authentication*.
+* *Account* is a data structure that has *currency* and *balance* in Mitum Currency.
+* *Account* has a unique value called *address* and can be identified through this.
+* Register a public key for user's *Account authentication*.
 * Mitum Currency accounts can register *multiple public keys* because **multi signatures are possible**.
 
 | For example, an account under following condition is available.
@@ -150,7 +150,7 @@ Multi Sig Account
 sign
 ---------------------------------------------------
 
-| By ``sign`` command, get the signature of the private key for a specific message.
+| The ``sign`` command is used for getting the signature of the private key for a specific message.
 
 .. code-block:: shell
 

@@ -13,7 +13,7 @@ What is Handover?
 | **Handover** is a feature that allows **a running node to be replaced without stopping**.
 
 * Nodes participating in the consensus process in the entire network may need to be replaced due to various circumstances.
-* There may be cases where the program running the node needs to be updated, the node needs to be moved to another cloud service, or the node fails. In such cases, you can replace an already running node with an alternate node without stopping it.
+* There may be cases where the program running the node needs to be updated or moved to another cloud service, or the node fails. In such cases, you can replace an already running node with an alternate node without stopping it.
 
 | Handover is one of the key features that can support public networks in the future.
 
@@ -49,7 +49,7 @@ Handover Scenario
 How to Run
 ---------------------------------------------------
 
-| Under above scenario, it works along the following steps,
+| Under the scenario above, it follows the steps below.
 
 * *A* is running as a suffrage node and wants to replace it with *A-sub*.
 * After confirming that *A* is in **CONSENSUS** state, run *A-sub* with ``node run`` command using the above config.
@@ -81,4 +81,4 @@ How can I check that the start-handover is finished?
 -----------------------------------------------------
 
 * When checking *NodeInfo* of *A-sub*, it is changed to **CONSENSUS** state.
-* When *A*’s *NodeInfo* is checked, if it is changed to **SYNCING** state, handover is normally completed.
+* Once *A*'s *NodeInfo* is checked, if it is changed to **SYNCING** state, handover is succesfully completed.

@@ -41,7 +41,7 @@ node init
 
 .. note::
 
-    If already saved block data is found, an error ``environment already exists: block=0`` occurs. To reset the error and ignore it, run it by adding the ``--force`` option.    
+    If there is already a saved block data,, an error ``environment already exists: block=0`` occurs. To reset the error and ignore it, run it by adding the ``--force`` option.    
     
     ``$ ./mc --log-level info init ./tutorial.yml --force``
 
@@ -50,7 +50,7 @@ node init
 node run
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| When the node is run, the blockchain’s storage status and consensus participation status are changed to *SYNC*, *JOIN*, and *CONSENSUS* modes, and block creation starts.
+| When the node starts to run, the blockchain's storage status and consensus participation status are changed to *SYNC*, *JOIN*, and *CONSENSUS* modes, and block creation starts.
 
 .. code-block:: shell
 
@@ -66,7 +66,7 @@ node run
 
 | If the node is a suffrage node, the addresses of other live suffrage nodes can be found using the *Node discovery protocol*. The node discovery feature is only supported when the node is a suffrage node.
 
-* When the suffrage node starts up, it is possible to determine the network information of all suffrage nodes without publish url information of all suffrage nodes.
+* When the suffrage node starts up, it is possible to determine the network information of all suffrage nodes without publishing url information of all suffrage nodes.
 * For node discovery, a node must set the address of one or more suffrage nodes it knows to a discovery url at startup.
 
 | To specify the discovery url, use the ``–discovery`` command line option.
@@ -100,7 +100,7 @@ node run
 
 | Multiple file can be set to ``–network-log`` and ``–log``.
 
-| In mitum Currency, ``–network-log`` option will also collect the requests log from *digest API* (http2)
+| In Mitum Currency, ``–network-log`` option will also collect the requests log from *digest API* (http2).
 | ``–network-log`` option is only available in ``node run`` command.
 
 Lookup Genesis Account

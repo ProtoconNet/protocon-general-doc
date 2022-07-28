@@ -9,7 +9,7 @@ Others
 version
 ---------------------------------------------------
 
-| Check the version of the installed Mitum Currency by ``version`` command.
+| Check the version of the installed Mitum Currency using the ``version`` command.
 
 .. code-block:: shell
 
@@ -26,7 +26,7 @@ version
 quic-client
 ---------------------------------------------------
 
-| Note that the response of ``quic-client`` is same with that when requesting *node info* by API.
+| Note that the response of ``quic-client`` is identical to the response when requesting *node info* by API.
 
 .. code-block:: shell
 

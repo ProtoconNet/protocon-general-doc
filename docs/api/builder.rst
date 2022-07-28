@@ -106,7 +106,7 @@ Get Operation Fact Template
         ]
     }
 
-* The ``hash`` value is automatically completed by the builder. You don’t have to edit it.
+* There is no need to edit the ``hash`` value as the builder automatically completes it.
 * ``token`` is a *base64* encoded value.
 * Use the ``_hint`` item as it is.
 
@@ -324,7 +324,7 @@ Broadcast Message to Network
 
 | In this case, the *signer* of the seal becomes the digest node.
 
-* If the request body is **operation**, a new seal is created and the digest node signs.
+* If the request body is an **operation**, a new seal is created and the digest node signs.
 * If the request body is a **seal**, the seal is signed by the digest node.
 
 +---------------+-----------------------------------------------+
@@ -457,7 +457,7 @@ Broadcast Message to Network
 Confirming the Success of the Operation
 ---------------------------------------------------
 
-| Whether the operation is successfully processed can be checked by querying the operation with the *fact hash* value in the api.
+| By querying the operation with the *fact hash* value in the api, you can check whether the operation is successfully processed or not.
 
 +---------------+-----------------------------------------------+
 | METHOD        | GET                                           |
@@ -465,8 +465,8 @@ Confirming the Success of the Operation
 | PATH          | /block/operation/{operation_fact_hash}        |
 +---------------+-----------------------------------------------+
 
-* If ``_embedded.in_state`` is true in the response message, the operation is saved in the block.
-* If ``_embedded.in_state`` is false, the operation was not saved in the block.
+* If ``_embedded.in_state`` is true in the response message, it means the operation has successfully been saved in the block.
+* If ``_embedded.in_state`` is false, it means the operation hasn't been saved in the block.
 
 * If **the operation fails**, the reason may be as follows.
     

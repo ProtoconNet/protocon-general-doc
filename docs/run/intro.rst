@@ -16,12 +16,12 @@ About Mitum Currency Node
 
 | Nodes participating in the network perform the following tasks.
 
-* Make Proposal
+* Making Proposal
 * Block Verification
 * Voting
-* Store Block
-* Provide Digest API Service
-* Transaction Request Collection
+* Storing Block
+* Providing Digest API Service
+* Transaction Requesting Collection
 
 | For more information on the **Mitum Blockchain** network, refer to `Mitum Document <https://mitum-doc.readthedocs.io/en/proto2/>`_.
 
@@ -54,7 +54,7 @@ Golang
 
 | **Mitum Currency** is developed using the programming language `Go <https://golang.org>`_.
 
-| To create an executable binary, you need to build it from the source code.
+| To create an executable binary, you need the source code to be built from.
 | We do not provide detailed instructions for installing the Go language here.
 | You must have the Golang installed with at least version 1.16 to build Mitum currency.
 

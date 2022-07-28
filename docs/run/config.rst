@@ -53,7 +53,7 @@ network
 ---------------------------------------------------
 
 | Specify the *domain address* or *IP address* of the node used in the network.
-| Address to receive messages from node or client, using *quic* communication protocol.
+| Address is needed to receive messages from node or client, and the communication process uses *quic* communication protocol.
 | *Self-signed certificates* can be used to set up test node. You can use it for only test and development nodes where security is not a big concern.
 
 .. code-block:: shell
@@ -75,9 +75,9 @@ network
 rate-limit
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| Basically, API interface of internet service allows to connect from client without restriction.
-| However, too many requests to service does harm to the performance of service
-| To maintain the service to be stable, ``rate limit`` can be applied to the API service.
+| API interface of internet service allows connection to the client without restriction.
+| However, overflowing requests can ruin the performance of service.
+| To maintain the service stable, ``rate limit`` can be applied to the API service.
 
 | See `Rate limiting <https://en.wikipedia.org/wiki/Rate_limiting>`_.
 
@@ -111,7 +111,7 @@ rate-limit
   * **memory**: memory cache
   * **redis://<redis server>**: cached in redis server
 
-* ``preset``: pre defined rate limit settings.
+* ``preset``: predefined rate limit settings.
 
     * For Mitum, ``suffrage`` and ``world`` presets are already defined. See `launch/config/ratelimit.go <https://github.com/spikeekips/mitum/blob/master/launch/config/ratelimit.go>`_ in the source code.
     * You can make your own rate limit setting like bad-nodes.
@@ -125,7 +125,7 @@ rate-limit
     * Rate limit can be set through ``preset`` and additional ``limits``.
     * ``preset`` can be pre-defined preset like ``suffrage``, ``world`` or user-defined preset like ``bad-nodes``.
     * Additional limit such as ``blockdata: 5/m`` can be added to the ``preset``.
-    * Rules will be checked by the defined order. The upper rule will be checked first.
+    * Rules will be checked by the defined order from upper to lower.
 
 * Detailed limit:
 
@@ -200,7 +200,7 @@ storage
     database:
         uri: mongodb://127.0.0.1:27017/mc
 
-| ``port number`` should be same with that when running docker.
+| ``port number`` should be the same as that of when running docker.
 
 ---------------------------------------------------
 suffrage

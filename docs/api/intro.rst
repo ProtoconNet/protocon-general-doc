@@ -5,7 +5,7 @@ REST API
 ===================================================
 
 | **Digest API** is a service that allows nodes to search blockchain data.
-| It can be used in applications such as wallet and blockchain explorer.
+| It can be used in various applications, such as wallet or blockchain explorer.
 
 * API is provided through *HTTP/2 network protocol*.
 * Response message follows `HAL <https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-08>`_ and is delivered in *JSON* format.
@@ -63,6 +63,6 @@ Summary
 | /currency/{currency_id}                | GET                   | Currency by currency id            |
 +----------------------------------------+-----------------------+------------------------------------+
 
-| If necessary, refer to `Mitum Currency Digest API Docs <https://rapidoc.test.protocon.network/>`_ for details.
+| Refer to `Mitum Currency Digest API Docs <https://rapidoc.test.protocon.network/>`_ for details.
 
 | This document doesn't provide any information of APIs for Mitum Blocksign or Mitum Blockcity. See `Mitum Blocksign Digest API Docs <https://rapidoc.blocksign.protocon.network>`_ for Mitum Blocksign. 

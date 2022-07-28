@@ -20,7 +20,7 @@ Prerequisite
 Genesis Account Lookup
 ---------------------------------------------------
 
-1. You can lookup genesis account from local blockdata.
+1. You can look up genesis account from local blockdata.
 
 .. code-block:: shell
 
@@ -46,7 +46,7 @@ Genesis Account Lookup
 
 * 99999999999999999977 = 99999999999999999999 - (2 create account: 10 * 2) - (2 fee: 1 * 2)
 
-2. Also you can lookup genesis account from digest api.
+2. You can also look up genesis account from digest api.
 
 .. code-block:: shell
 
@@ -87,7 +87,7 @@ Genesis Account Lookup
 
 .. note::
 
-    When you lookup state by address from mongodb, remove the part after ``-`` of address and use it as key.
+    When you look up state by address from mongodb, remove the part after ``-`` of the address and use it as a key.
 
     * ``FnuHC5HkFMpr4QABukchEeT63612gGKus3cRK3KAqK7Bmca`` → ``GkswusUGC22R5wmrXWB5yqFm8UN22yHLihZMkMb3z623-mca``
 

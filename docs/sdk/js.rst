@@ -4,7 +4,7 @@ Javascript
 
 | This is SDK written in Javascript.
 
-| Support models are,
+| Supported models are,
 
 * Mitum Currency
 * Mitum Document
@@ -76,9 +76,9 @@ Get Available Account
 
 | Before start, you must hold the account registered in the network.
 
-| In Mitum Currency, only already existing account can create operations able to be stored in block.
+| In Mitum Currency, only an existing account can create operations to be stored in a block.
 
-| An account consists of following factor.
+| An account consists of the following factors.
 
 .. code-block:: none
 
@@ -91,24 +91,24 @@ Get Available Account
     - The range of threshold should be in 1 <= threshold <= 100
     - The sum of all weights of the account should be over or equal to threshold
 
-| If you haven't have any account yet, ask some other account to create your account first.
+| If you haven't made an account yet, ask other accounts to create your account first.
 | You can get keypairs for your account in **Details - Get Mitum Keypair** section.
-| Hand your (public key, weight) pairs and threshold to the account holder who helps make your new account.
+| Hand your (public key, weight) pairs and threshold to the account holder who helped create your new account.
 
-| For signing, private keys corresponding each public key of the account must be remembered. **Don't let not allowed users to know your private key!**
+| For signing, you must remember private keys corresponding each public key of the account. **Don't let not allowed users to know your private key!**
 | Of course, you must know your account address because you should use the address as ``sender``.
 
 | You are able to create operations with unauthorized account(like fake keys and address) but those operations will be rejected after broadcasting.
 
-| Now, go to next part to start to create your first operation!
+| Now, go to the next part to start creating your first operation!
 
 Create Generator
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| Most of elements and factors for an operation are created by ``Generator``.
+| Most of the elements and factors for an operation are created by ``Generator``.
 | For Mitum Currency, use ``Generator.mc``.
 
-| When declare a ``Generator``, ``network id`` should be provided.
+| When declaring a ``Generator``, ``network id`` should be provided.
 | ``network id`` is up to each network.
 
 | Let's suppose that the network id of the network is ``mitum``.
@@ -123,20 +123,20 @@ Create Generator
 
 | For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
 
-| In addition, you must have available account on the network.
+| In addition, you must have an available account on the network.
 
-| Now, it's done to create operations.
+| Now, you are ready to create operations.
 
 Create Operation Item
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | Everything to do by an operation is contained in *operation fact*, not in *operation*.
-| *Fact* have the basic information such that ``sender``, ``token``, etc...
+| *Fact* has the basic information such that ``sender``, ``token``, etc…
 
 | Actually, real constructions for the operation are contained in *Item*.
 | That means you must create items for the operation.
 
-| Let's suppose that you want to create an account following below conditions.
+| Let's suppose that you want to create an account following conditions below.
 
 .. code-block:: none
 
@@ -147,9 +147,9 @@ Create Operation Item
     2. The initial balance of the account will be,
         - balance(currency id, amount): (MCC, 10000), (PEN, 20000)
 
-| Since the number of keys contained in the account is 2, new account will be *multi-sig account*.
+| Since the number of keys contained in the account is 2, new account will be a *multi-sig account*.
 
-| If every factor of new account have been decided, create an item!
+| If every factor of the new account has been decided, create an item!
 
 .. code-block:: javascript
 
@@ -170,7 +170,7 @@ Create Operation Item
 * Forth, combine all amounts by ``Generator.mc.amounts(amount list)``.
 * Finally, create an item by ``Generator.mc.getCreateAccountsItem(keys, amounts)``
 
-| Of course you can customize the content of items by following constrains.
+| Of course, you can customize the content of items by following constraints.
 
 .. code-block:: none
 
@@ -186,7 +186,7 @@ Create Operation Fact
 | Don't worry about ``token`` and ``fact hash`` because they will be filled automatically by SDK.
 | The information you must provide is about ``items`` and ``sender``.
 
-| The way to create items has been introduced above section.
+| The way to create items has been introduced in the section above.
 
 | Just be careful that only the account under below conditions can be used as ``sender``.
 
@@ -211,15 +211,15 @@ Create Operation
 | Finally, you are in the step to create operation!
 
 | Only thing you need to prepare is **sender's private key**. It is used for signing fact.
-| The signature of a private key is included to ``fact_signs`` as a **fact signature**.
-| The sum of weights of all signers in ``fact_signs`` should exceeds or be equal to ``sender``'s threshold.
+| The signature of a private key is included in ``fact_signs`` as a **fact signature**.
+| The sum of weights of all signers in ``fact_signs`` should exceed or be equal to the ``sender``’s threshold.
 
-| **Only the signatures of sender account's keys are available to fact_signs!**
+| **Only the signatures of the sender account’s keys are available to fact_signs!**
 
-| There is ``memo`` in operation but it is not necessary. You can enter something if you need, but be careful because that ``memo`` also affect to ``operation hash``.
+| There is ``memo`` in operation but it is not necessary. You can enter something if you need, but be careful because that ``memo`` also affects the ``operation hash``.
 
-| In this example, supposed that ``sender`` is *single-sig account*. That means, only one key exist in the sender's account.
-| If ``sender`` is *multi-sig account*, you may add multiple signatures to ``fact_signs``.
+| In this example, suppose that ``sender`` is a *single-sig account* which means only a single key exists in the sender’s account.
+| If ``sender`` is a *multi-sig account*, you may add multiple signatures to ``fact_signs``.
 | What key must sign is decided by the account's threshold and keys' weights.
 
 .. code-block:: javascript
@@ -231,7 +231,7 @@ Create Operation
 
 | Use just ``Generator.getOperation(fact, memo)`` for create operations, not ``Generator.mc.getOperation(fact, memo)``.
 
-| Be sad, an operation can contain only one fact.
+| Unfortunately, an operation can contain only one fact.
 
 Create Seal
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -240,10 +240,10 @@ Create Seal
 
 | However, sometimes you may need to wrap multiple operations with a seal.
 
-| Mentioned above, one seal can contain multiple operations.
+| As mentioned above, one seal can contain multiple operations.
 
-| The maximum of the number of operations in a seal is decided by the policy of nodes.
-| So check how many operations you can include in a seal before create seals.
+| The maximum number of operations in a seal is decided by the policy of nodes.
+| So check how many operations you can include in a seal before creating seals.
 
 | Anyway, it is simple to create a seal with **mitum-js-util**.
 
@@ -277,12 +277,12 @@ Create Account
 
 | The tutorial for ``create-account`` have been already explained but it'll be re-introduced in one code-block.
 
-| To create new account you have to prepare,
+| To create a new account you have to prepare,
 
-* The information of new account: account keys as pairs of (public key, weight), threshold, initial balance as pairs of (currency id, amount)
+* The information of the new account: account keys as pairs of (public key, weight), threshold, initial balance as pairs of (currency id, amount).
 * Sender's account that has existed already - especially sender's account address and private keys.
 
-| Mentioned before, what private keys must sign the fact is up to the threshold and composition of weights.
+| As mentioned before, what private keys must sign the fact is up to the threshold and composition of weights.
 
 .. code-block:: javascript
 
@@ -311,12 +311,12 @@ Create Account
     const createAccounts = generator.getOperation(createAccountsFact, "")
     createAccounts.addSign(senderPrivateKey);
 
-| The detailed explanation was omitted. See at the start of 'Make Your First Operation'.
+| The detailed explanation was omitted. Refer to the beginning part of 'Make Your First Operation.'.
 
 Key Updater
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| This operation is literally to update keys of the account.
+| This operation is to update keys of the account as its name implies.
 
 | For example,
 
@@ -332,9 +332,9 @@ Key Updater
 
 | To update keys of the account, you have to prepare,
 
-* The account(target) information you want to change the keys - account address and private keys; what private keys are need is up to threshold and key weights.
+* The account(target) information you want to change the keys - account address and private keys; what private keys need is up to threshold and key weights.
 * New keys: pairs of (public key, weights) and threshold
-* Sufficient balance of a currency id to pay some fee.
+* Sufficient balance in a currency id to pay a fee.
 
 | ``create-account`` and ``transfer`` need ``item`` to create an operation but ``key-updater`` don't need any item for it.
 | Just create *fact* right now.
@@ -359,8 +359,8 @@ Key Updater
     const keyUpdater = generator.getOperation(keyUpdaterFact, "")
     keyUpdater.addSign(targetPrivateKey) // only one signature since the account is single-sig
 
-* **After updating keys of the account, the keys used before becomes useless. You should sign operation with private keys of new keypairs of the account.**
-* **So record new private keys somewhere before send key-updater operation to the network.**
+* **After updating keys of the account, the keys used before become useless. You should sign operation with private keys of new keypairs of the account.**
+* **So record new private keysthreshold somewhere else before sending a key-updater operation to the network.**
 
 Transfer
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -374,19 +374,19 @@ Transfer
 
 | Like ``create-account``, you must create *item* before making *fact*.
 
-| Check whether you hold sufficient balance for each currency id to transfer before sending operation.
+| Check whether you hold sufficient balance for each currency id to transfer before sending the operation.
 
 | Before start, suppose that you want to transfer,
 
 * 1000000 MCC token
 * 15000 PEN token
 
-| And receiver is,
+| And the receiver is,
 
 * CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca
 
 | Note that up to 10 (currency id, amount) pairs can be included in one item.
-| Moreover, up to 10 item can be included in one fact. However, the receiver for each item should be different.
+| Moreover, up to 10 items can be included in one fact. However, the receiver for each item should be different.
 
 .. code-block:: javascript
 
@@ -417,16 +417,16 @@ Transfer
 Sign
 ---------------------------------------------------
 
-| To allow an operation to store in blocks, whether signatures of the operation satisfy the **condition** should be checked.
+| To allow an operation to be stored in blocks, whether signatures of the operation satisfy the **condition** should be checked.
 
 | What you have to care about is,
 
-* Is every signature is a signature signed by private key of the account?
+* Has every signature been signed by the private key of the account?
 * Is the sum of every weight for each signer greater than or equal to the account threshold?
 
 | Of course, there are other conditions each operation must satisfy but we will focus on **signature** (especially about fact signature) in this section.
 
-| Let's suppose there is an multi-sig account with 3 keys s.t each weight is 30 and threshold is 50.
+| Let's suppose there is a multi-sig account with 3 keys s.t each weight is 30 and threshold is 50.
 
 | That means, 
 
@@ -435,7 +435,7 @@ Sign
 * (pub3, 30)
 * threshold: 50
 
-| When this account want to send an operation, the operation should include at least two fact signatures of different signers.
+| When this account wants to send an operation, the operation should include at least two fact signatures of different signers.
 
 1. CASE1: fact signatures signed by pub1's private key and pub2's private key
 
@@ -461,15 +461,15 @@ Sign
    2. the sum of weights = 90 > threshold = 50
    3. So the operation with these two fact signatures is available
 
-| Therefore, you must add multiple signature to each operation to satisfy the condition. (use ``Operation.addSign(private key)``)
-| Like **CASE4**, it's okay to sign with all private keys as long as the sum of those weights >= threshold.
+| Therefore, you must add multiple signatures to each operation to satisfy the condition. (use ``Operation.addSign(private key)``)
+| Like **CASE4**, it's okay to sign with every private key as long as the sum of their weight >= threshold.
 
 Add Fact Sign to Operation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| Beside adding a fact signature when create the operation, there is another way to add new fact signature to the operation.
+| Besides adding a fact signature when creating the operation, there is another way to add a new fact signature to the operation.
 
-| To add new signature to the operation, you have to prepare,
+| To add a new signature to the operation, you have to prepare,
 
 * Private key to sign - it should be that of the sender of the operation.
 * Operation as JS dictionary object, or external JSON file.
@@ -495,7 +495,7 @@ Add Fact Sign to Operation
     const signedFromPath = signer.signOperation(operationJsonPath)
     const signedFromObject = signer.signOperation(operationObject)
 
-| ``signedFromPath`` and ``signedFromObject`` results in operation with same fact signatures.
+| ``signedFromPath`` and ``signedFromObject`` results in operation with the same fact signatures.
 
 | Note that the result operation is not ``Operation`` object of **mitum-js-util**. It's just a dictionary object.
 | If you want to add multiple signature at once, you must create another different JSON file then re-sign it with other private keys using ``Signer``.
@@ -528,7 +528,7 @@ Get Mitum Keypair
 Just Create New Keypair
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| **mitum-js-util** will create random keypair for you!
+| **mitum-js-util** will create a random keypair for you!
 
 | Use ``getNewKeypair()``.
 
@@ -547,7 +547,7 @@ Just Create New Keypair
 Get Keypair From Your Private Key
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| If you already have own private key, create keypair with it!
+| If you already have your own private key, create keypair with it!
 
 .. code-block:: javascript
 
@@ -564,7 +564,7 @@ Get Keypair From Your Private Key
 Get Keypair from your seed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| You can get keypair from your seed, too. Even if you don't remeber the private key of the keypair, the keypair can be recovered by it's seed.
+| You can get a keypair from your seed, too. Even if you don't remember the private key of the keypair, the keypair can be recovered by its seed.
 | Note that string seed length >= 36.
 
 .. code-block:: javascript
@@ -584,7 +584,7 @@ Get Account Address with Keys
 
 | You can calcualte address from threshold, and every (public key, weight) pair of the account.
 
-| However, it is not available to get address if keys or threshold of the account have changed.
+| However, it is not available to get an address if the keys or threshold of the account have changed.
 | This method is available only for the account that have not changed yet.
 
 | The account information for the example is,
@@ -693,7 +693,7 @@ JSONParser
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | This class is constructed just for convenience.
-| If you would like to use other js package to export ``Operation`` to file or to print it in JSON format, you don't need to use ``JSONParser`` of **mitum-js-util**.
+| If you would like to use other js packages to export ``Operation`` to file or to print it in JSON format, you don’t need to use ``JSONParser`` of **mitum-js-util**.
 
 .. code-block:: javascript
 

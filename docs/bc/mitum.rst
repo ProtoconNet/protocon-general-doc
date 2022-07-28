@@ -6,7 +6,7 @@ Mitum Protocol
 What is MITUM?
 ---------------------------------------------------
 
-| **Mitum** is a general privacy blockchain with flexible and resilient way.
+| **Mitum** is a general privacy blockchain that is flexible and resilient.
 
 | Mitum can be used for various kind of purposes.
 

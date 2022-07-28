@@ -19,12 +19,12 @@ What is Mitum Currency
 
 
 ---------------------------------------------------
-Feature of Mitum Currency
+Features of Mitum Currency
 ---------------------------------------------------
 
-* Mitum Currency provides core features to meet the business needs of various fields related to tokens.
-* *Multiple keys* can be registered when creating an account, and related keys can be replaced through key update operation.
-* Mitum Currency can issue new currency and related policy can be customized.
+* Mitum Currency provides core features to meet the business needs of various token-related fields.
+* *Multiple keys* can be registered when creating an account, and related keys can be replaced through the key update operation.
+* Mitum Currency can issue new currencies and related policies can be customized.
 * Currency-related policy can be updated at any time as needed.
 * Mitum Currency has no compensation for block generation and there is also no inflation.
 * The node configuration for the Mitum Currency network follows the node operation policy of the Mitum blockchain, and details can be found at :ref:`build network`.
@@ -56,7 +56,7 @@ Operation
 
 | Each operation requires a signature made with a private key according to its contents.
 
-| The fact in the operation contains the contents to be executed, and the hash value summarizing the body of the fact is also included.
+| The fact in the operation contains the contents to be executed and the hash value summarizing the body of the fact.
 
 Fact and token
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -81,7 +81,7 @@ Fact and token
 
 | If so, does that mean that operations with the same fact content cannot be duplicated?
 
-| Don’t worry, in each fact, we use a value called *token* to make it unique.
+| Don't worry, in each fact, we use a value called *token* to make it unique.
 | The token is a value added to the essential contents of the operation.
 
 .. code-block:: json
@@ -116,31 +116,31 @@ Fact and token
         ]
     }
 
-| A token is similar to a memo, but has the characteristic of making a fact unique by **using a unique token value** for the same fact content.
+| The role of the token resembles that of a memo, but is capable of making a fact unique by **giving different token values** for the same fact content.
 
-| Making the fact essential to every operation unique expands usability in many ways.
+| Making the fact that is essential for every operation unique expands usability in several ways.
 
-* The biggest advantage is that if you know exactly the contents of the fact along with the token, you can simply check whether the operation is processed or not.
-* Anyone can calculate the fact hash if they know the sender, receiver, currencyID, amount, and a specific token value was used.
+* The biggest advantage is that you can simply check whether the operation is processed or not as you exactly know the contents of the fact along with the token.
+* Anyone can calculate the fact hash if they know: the sender, receiver, currencyID, amount of currency, and a specific token value used.
 * Therefore, anyone can inquire whether the corresponding operation has been processed with the fact hash.
 
-| A *fact hash* is like a **public proof** recorded in a blockchain. If the evidence disclosed in the blockchain is used well, various applications can be made.
-| For example, even an outsider who does not have a direct account in the blockchain can check the fact hash, which is the only value indicating whether the operation is processed or not, and make the implementation conditional on this.
+| A *fact hash* is like a **public proof** recorded in a blockchain. There can be various applications depending on how a user uses the evidence disclosed in the blockchain.
+| For example, even an outsider who does not have a direct account in the blockchain can check the fact hash, the only value indicating whether the operation is processed or not, and make the implementation based on that.
 
-| In addition, facts and tokens can be usefully used in models that deal with various data as well as remittance.
+| In addition, facts and tokens can practically be used in models that deal with various data including remittance.
 
 .. _seal:
 
 Seal
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| *Seal* is **a collection of operations** transmitted to the network. In other words, the Operation is contained in the seal and transmitted.
+| *Seal* is **a collection of operations** transmitted to the network. In other words, the operation is contained in the seal and transmitted.
 
 * To transmit the seal, a signature made with a private key is required.
-* To create signature, you must use the private key created in Mitum’s keypair package.
+* To create signature, you must use the private key created in Mitum's keypair package.
 * Seal can contain up to 100 operations.
 
-| The private key used for the signature has nothing to do with the blockchain account. In other words, it doesn’t have to be the private key used by the account.
+| The private key used for the signature has nothing to do with the blockchain account. In other words, it doesn't have to be the private key used by the account.
 
 Send
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -168,7 +168,7 @@ Block data in Mitum Currency Node
 
 | In the **Mitum Currency Node**, block data is stored in two spaces: **Database** and **File System**.
 
-* The **database** stores the informations which are used for consensus, such as,
+* The **database** stores the information used for consensus, such as,
 
 .. code-block:: none
 
@@ -201,7 +201,7 @@ Block data in Mitum Currency Node
 BlockDataMap
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| By default, block data is stored on the local file system.
+| By default, block data is stored in the local file system.
 
 | *blockdatamap* contains the information about where the actual block data is located.
 
@@ -228,9 +228,9 @@ BlockDataMap
 BlockDataMap for block data stored in external storage
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| Mitum Currency supports storing block data in external storage rather than the node’s local file system.
+| Mitum Currency supports storing block data in external storage rather than the node's local file system.
 
-| After going through some process to store block data externally, *blockdatamap* becomes as follows.
+| After going through a certain process to store block data externally, *blockdatamap* is modified as follows.
 
 .. code-block:: json
     
@@ -257,8 +257,8 @@ How to update BlockDataMap for external Storage
 
 | For example, suppose that block data with a block height of 10 is moved to an external storage.
 
-| Here we will do this using the node’s *deploy key*.
-| This *deploy key* of the node is a key that can be used instead of the private key of the node.
+| Here, we will do this using the node's *deploy key*.
+| This *deploy key* of the node is a key that can be used instead of the private key.
 
 | See ``deploy key`` command in :ref:`deploy command` for how to create a deploy key.
 
@@ -268,10 +268,10 @@ How to update BlockDataMap for external Storage
 * Download the current *blockdatamap* by using the ``storage download map`` command.
 * Upload all the block data files of height 10 to external storage(example : AWS S3)
 * Update the ``url`` field value of the downloaded BlockDataMap with the new url of external storage.
-* Update the node’s *blockdatamap* by running the ``storage set-blockdatamaps`` command.
+* Update the node's *blockdatamap* by running the ``storage set-blockdatamaps`` command.
 * Check the newly updated *blockdatamap* with ``storage download map`` command
 
-| After updating blockdatamap successfully, mitum currency node will remove all the files of height, 10 automatically after 30 minute.
+| After updating blockdatamap successfully, the mitum currency node will remove all the files with the height of 10 automatically after 30 minutes.
 
 .. code-block:: shell
 

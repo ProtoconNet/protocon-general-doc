@@ -2,7 +2,7 @@
 Storage Command
 ===================================================
 
-| ``storage`` command helps **download**, **verify**, and **restore** block data.
+| The ``storage`` command helps **download**, **verify**, and **restore** block data.
 
 | The subcommands related to ``storage`` command are as follows.
 
@@ -18,7 +18,7 @@ Storage Command
 download
 --------------------------------------------------
 
-| By ``download`` command, download block data of specific blockheight.
+| The ``download`` command is used for downloading block data of specific blockheight.
 
 .. code-block:: shell
 
@@ -51,7 +51,7 @@ download
 map
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| By ``download map`` command, download blockdata map.
+| The ``download map`` command is used for downloading the blockdata map.
 
 | See :ref:`block data` for details.
 
@@ -124,7 +124,7 @@ map
 verify-blockdata
 --------------------------------------------------
 
-| By ``verify-blockdata`` command, verify blockdata in local storage.
+| The ``verify-blockdata`` command is used for verifying blockdata in local storage.
 
 .. code-block:: shell
 
@@ -163,7 +163,7 @@ verify-blockdata
 verify-database
 --------------------------------------------------
 
-| By ``verify-database`` command, the database is verified by comparing it with the block data.
+| The ``verify-database`` command is used for verifying the database by comparing it with the block data.
 
 .. code-block:: shell
 
@@ -198,7 +198,7 @@ verify-database
 clean
 --------------------------------------------------
 
-| By ``clean`` command, clean blockdata and database.
+| The ``clean`` command is used for cleaning blockdata and database.
 
 .. code-block:: shell
 
@@ -214,7 +214,7 @@ clean
 clean-by-height
 --------------------------------------------------
 
-| By ``clean-by-height`` command, clean blockdata and database above a specific height.
+| The ``clean-by-height`` command is used for cleaning blockdata and database above a specific height.
 
 .. code-block:: shell
 
@@ -230,9 +230,9 @@ clean-by-height
 restore
 --------------------------------------------------
 
-| By ``restore`` command, restore the entire database from the downloaded blockdata.
+| The ``restore`` command is used for restoring the entire database from the downloaded blockdata.
 
-| When you use ``restore`` command, not only data for blockdata but also data used for digest API are created. Check if the ``network id`` in the settings of the yml file is the same as the ``network id`` of the downloaded node.
+| When you use the ``restore`` command, both blockdata and data used for digest API are created. Check if the ``network id`` in the settings of the yml file is the same as the ``network id`` of the downloaded node.
 
 * Multiple blockdata can be recovered simultaneously with the ``–concurrency`` option.
 * If you want to delete and restore the existing mongodb data, use ``–clean``.
@@ -259,7 +259,7 @@ restore
 set-blockdatamaps
 --------------------------------------------------
 
-| By ``set-blockdatamaps`` command, update multiple BlockDataMaps.
+| The ``set-blockdatamaps`` command is used for updating multiple BlockDataMaps.
 
 | See :ref:`block data` for details.
 

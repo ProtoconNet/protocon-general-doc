@@ -4,7 +4,7 @@
 Deploy Command
 ===================================================
 
-| Execute ``deploy key`` command to create and manage the node’s deploy key.
+| Execute the ``deploy key`` command to create and manage the node's deploy key.
 
 | The subcommands related to ``deploy key`` command are as follows.
 
@@ -19,9 +19,9 @@ Deploy Command
 
     Updates of nodes (such as changing the BlockDataMap) should be allowed only by the node owner.
     The node owner uses the key to prove himself when managing the node.
-   
-    However, it is dangerous to directly use a node’s private key for node management.
-    So we need a **replaceable and manageable key that can be used for things like node management**.
+
+    However, it is dangerous to directly use a node's private key for node management.
+    Thus, we need a **replaceable** and **manageable** key that can be used for things like node management.
     
     ``deploy key`` is used for this purpose.
 
@@ -29,7 +29,7 @@ Deploy Command
 new
 ---------------------------------------------------
 
-| By ``new`` command, create and register new deploy key to the node.
+| The ``new`` command is used for creating and registering a new deploy key to the node.
 
 .. code-block:: shell
 
@@ -53,7 +53,7 @@ new
 keys
 ---------------------------------------------------
 
-| By ``keys`` command,  get the list of registered deploy keys in the node.
+| The ``keys`` command is used for obtaining the list of registered deploy keys in the node.
 
 .. code-block:: shell
 
@@ -76,7 +76,7 @@ keys
 key
 ---------------------------------------------------
 
-| By ``key`` command, check the existence of deploy key in the node.
+| The ``key`` command is used for checking the existence of the deploy key in the node.
 
 .. code-block:: shell
 
@@ -101,7 +101,7 @@ key
 revoke
 ---------------------------------------------------
 
-| By ``revoke`` command, revoke deploy key from the node.
+| The ``revoke`` command is used for revoking the deploy key from the node.
 
 .. code-block:: shell
 

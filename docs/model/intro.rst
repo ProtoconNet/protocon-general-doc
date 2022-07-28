@@ -2,16 +2,16 @@
 Blockchain Application Model
 ===================================================
 
-| *Mitum* is designed for general purpose blockchain. To fill this requirement, **policy** and **data** of Mitum can be configurable and manageable by practical way.
+| *Mitum* is designed to be used as a general purpose blockchain. To meet this requirement, the **policy** and **data** of Mitum can be configured and managed in a practical way.
 
-| To make a long story short, network designers will design their network in 2 parts:
+| In simpler terms, network designers will design their network in two parts:
 
 * Data
 * Policy
 
-| By designing *data* and *policy*, designers can build and launch their own model of network.
+| By configuring the *data* and *policy*, designers can build and launch their own model of network.
 
-| For example, suppose that a designer want to build currency model in Mitum. He/She can define several currencies and relative data and add additional policy.
+| For example, suppose that a designer wants to build a currency model in Mitum. The designer can define several currencies and relative data and add additional policy.
 
 | Data types:
 
