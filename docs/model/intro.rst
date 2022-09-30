@@ -30,7 +30,8 @@ Blockchain Application Model
 
 
 .. image:: ../images/model/mitum_blockchain_layer.jpeg
-    :width: 820
+    :width: 1120
+    :height: 630
     :scale: 50 
     :alt: Mitum Blockchain Layer
 
