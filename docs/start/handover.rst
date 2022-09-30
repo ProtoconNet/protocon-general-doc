@@ -59,7 +59,7 @@ How to Run
 
 .. code-block:: shell
 
-    $ mitum-currency node start-handover \
+    $ ./mitum node start-handover \
         "Asas" \
         "KyfqCLSEyfUhskZ63WtVH3m3pGgnurFHuTgkgu73Pgyjf8sxbp8Rmpr" \
         "mitum" \

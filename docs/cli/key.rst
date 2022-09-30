@@ -1,10 +1,16 @@
+.. _key generation:
+
+===================================================
+Key Generation
+===================================================
+
 .. _key command:
 
-===================================================
-Key Command
-===================================================
+---------------------------------------------------
+key
+---------------------------------------------------
 
-| The ``key`` command creates keypairs, gets addresses from keys, and gets signature.
+| The ``key`` command generates keypairs, gets addresses from keys, and gets signature.
 
 | The subcommands of the ``key`` command are as follows.
 
@@ -19,51 +25,49 @@ Key Command
     * *Private key* and *public key* are created through keypair generation.
     * The generated keypair is used to *create an account*, *register a keypair* of a node, and *create a signature* of operation and seal.
 
----------------------------------------------------
 new
----------------------------------------------------
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | The ``new`` is used for **creating a new keypair**.
 
 Random Keypair
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Use the following to create a random keypair without any seed.
 
 .. code-block:: shell
 
-    $ ./mc key new
+    $ ./mitum key new
 
 | **EXAMPLE**
 
 .. code-block:: shell
 
-    $ ./mc key new 
+    $ ./mitum key new 
           hint: mpr
     privatekey: L1ZERchoY53vC5TJQ3WnZEWmg97L2Utw5rgFrCwM7ekTu9zJkZYjmpr
      publickey: 28nFxuC5ETygieSGEYTkewwnCZseB4TNYGMRtxz31bvxzmpu
 
 Keypair from Seed
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Use the following to create a keypair from a seed. Note that the length of string seed must be longer than or equal to 36.
 
 .. code-block:: shell
 
-    $ ./mc key new --seed <string seed>
+    $ ./mitum key new --seed <string seed>
 
 | **EXAMPLE**
 
 .. code-block:: shell
 
-    $ ./mc key new --seed abcdefghijklmnopqrstuvwxyzABCDEFGHIJ
+    $ ./mitum key new --seed abcdefghijklmnopqrstuvwxyzABCDEFGHIJ
           hint: mpr
     privatekey: KypAAGYtVFdTFLS8muPJhwfJBFCFHKSe594yYmKK3FPteh7sie4Dmpr
      publickey: 25BcZrcyiE3TD2BZEqkdDuaYB9zHxpdW82BNn8HkCLTijmpu
 
----------------------------------------------------
 address
----------------------------------------------------
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | The ``address`` command is used for generating addresses from keys.
 
@@ -71,7 +75,7 @@ address
 
 .. code-block:: shell
 
-    $ ./mc key address <threshold> [<publickey>,<weight>]
+    $ ./mitum key address <threshold> [<publickey>,<weight>]
 
 | **EXAMPLE**
 
@@ -85,15 +89,15 @@ address
 
 .. code-block:: shell
 
-    $ ./mc key address 100 21Sn1owHXRx336aaerU1WbbKjiZXMcrJsnxBHP9etNx6zmpu,50 utzCefA1Szmmt3rAwqW5yEhxK1x3hG3Y3yThEK3gZmv3mpu,50
+    $ ./mitum key address 100 21Sn1owHXRx336aaerU1WbbKjiZXMcrJsnxBHP9etNx6zmpu,50 utzCefA1Szmmt3rAwqW5yEhxK1x3hG3Y3yThEK3gZmv3mpu,50
     37x8YoAGA93B3HmDVNterRf1NTgz9tfN1gQn4jYuBYCHmca
 
-| **However, you won't get correct address if the keys of the account have been updated by the key-updater command.** Refer to :ref:`key updater`. 
+| **However, you won't get correct address if the keys of the account have been updated by the key-updater command.** Refer to :ref:`key-updater`. 
 
 .. _multi sig:
 
 Multi Sig Account
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * *Account* is a data structure that has *currency* and *balance* in Mitum Currency.
 * *Account* has a unique value called *address* and can be identified through this.
@@ -146,21 +150,20 @@ Multi Sig Account
 
 | Even in the same publickey combination, address will have different values if ``weight`` or ``threshold`` are different.
 
----------------------------------------------------
 sign
----------------------------------------------------
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | The ``sign`` command is used for getting the signature of the private key for a specific message.
 
 .. code-block:: shell
 
-    $ ./mc key sign <privatekey> <signature base>
+    $ ./mitum key sign <privatekey> <signature base>
 
 | **EXAMPLE**
 
 .. code-block:: shell
 
-    $./mc key sign L5nDx2QtZVBPtJvUQ13cj3bMhC487JdxrwXTdS6JgzTvnSHestCxmpr bWVzc2FnZQ=
+    $mitum key sign L5nDx2QtZVBPtJvUQ13cj3bMhC487JdxrwXTdS6JgzTvnSHestCxmpr bWVzc2FnZQ=
     381yXZHrm73kGD8z7FAksBjxy49wPRWn3WRdP22befdbFff6WYSdK8rz9TLpFWuEW7rmmphF3rHkrvTPvhVQ5kXNGLmELBwZ
 
-| Note that signature base is string type encoded by *base64*. 
+| Note that signature base is string encoded by *base64*. 

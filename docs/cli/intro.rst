@@ -1,10 +1,10 @@
-.. _cli:
+.. _CLI:
 
 ===================================================
 Command Line Interface
 ===================================================
 
-| In this part, we will introduce the commands supported by Mitum Currency and how to utilize them.
+| In this part, we will introduce the commands supported by Mitum and how to utilize them.
 
 | There are seven major commands it supports,
 
@@ -16,19 +16,30 @@ Command Line Interface
 * ``deploy``
 * ``quic-client``
 
-| You may be familiar with ``node`` command if you have already been to ``Run`` page.
+| You may be familiar with ``node`` command if you have already been to :ref:`Run` page.
 
-| It is easy to use the ``version`` and ``quic-client`` commands. They are explained in ``Others``. We will now explain the rest of the commands one by one.
+| The operation of each model can be generated using the ``seal`` command.
+
+| It is easy to use the ``version`` and ``quic-client`` commands. We will now explain the rest of the commands one by one.
 
 ---------------------------------------------------
 Summary
 ---------------------------------------------------
 
-| These are all the commands that Mitum Currency provides.
+| The following commands are only available in models that contain operations of **Mitum Currency**, and other commands are commonly used in all models.
+
+* ``seal create-account``
+* ``seal transfer``
+* ``seal key-updater``
+* ``seal currency-register``
+* ``seal currency-policy-updater``
+* ``seal suffrage-inflation``
+
+| As an example, these are all the commands that **Mitum Currency** provides.
 
 .. code-block:: shell
 
-    $ ./mc --help
+    $ ./mitum-currency --help
 
     Usage: mitum-currency <command>
 

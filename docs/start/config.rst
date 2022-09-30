@@ -23,7 +23,7 @@ genesis-operations
 | ``genesis-operation`` is a setting for the genesis operation that is executed when the network is initialized.
 | ``genesis-operation`` contains the contents of the block that is initially created.
 
-| In the currency model, information on the main currency and genesis account must be set.
+| For example, in the currency model, information on the main currency and genesis account must be set.
 
 | It registers the information about,
 
@@ -32,7 +32,7 @@ genesis-operations
 * Currency ID
 * Fee policy of the currency to be created
 
-| For example,
+| The following settings apply to all mitum models, including operations of the **Mitum Currency** model.
 
 .. code-block:: none
 
@@ -82,7 +82,7 @@ rate-limit
 | See `Rate limiting <https://en.wikipedia.org/wiki/Rate_limiting>`_.
 
 | Mitum supports *quic* based API service for communication within nodes, even none-suffrages.
-| Mitum Currency additionally supports *http2* based API service, called digest.
+| Mitum additionally supports *http2* based API service, called digest.
 
 | ``rate-limit`` applied to these API services.
 
@@ -129,8 +129,8 @@ rate-limit
 
 * Detailed limit:
 
-    * The name of the API interface for Mitum, such as new-seal, used to set the limit can be found in RateLimitHandleMap (launch/config/ratelimit.go).
-    * The name of the API interface for Mitum-currency can be found in RateLimitHandlerMap (digest/handler.go).
+    * The API interface name for Mitum, such as new-seal, used to set the limit can be found in RateLimitHandleMap (launch/config/ratelimit.go).
+    * The API interface name for each model can be found in the RateLimitHandlerMap (digest/handler.go).
     * new-seal: 3/2m means new-seal interface allows 3 requests per 2 minutes to the specified IP or IP range.
     * See the manner of time duration.
 
@@ -196,7 +196,7 @@ storage
 
     storage:
     blockdata:
-        path: ./mc-blockfs
+        path: mitum-blockfs
     database:
         uri: mongodb://127.0.0.1:27017/mc
 
@@ -320,7 +320,7 @@ digest
 tutorial.yml
 ---------------------------------------------------
 
-| This is an example of **standalone** node configuration.
+| This is an example of **standalone** node configuration for **Mitum Currency**.
 
 .. code-block:: none
 
@@ -330,7 +330,7 @@ tutorial.yml
         database:
             uri: mongodb://127.0.0.1:27017/mc
         blockdata:
-            path: ./mc-blockfs
+            path: mitum-blockfs
     network-id: mitum
     network:
         bind: https://0.0.0.0:54321
@@ -356,7 +356,6 @@ tutorial.yml
     suffrage:
         nodes:
             - mc-nodesas
-
     digest:
         network:
             bind: https://0.0.0.0:54320

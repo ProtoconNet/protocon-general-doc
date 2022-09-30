@@ -14,7 +14,7 @@ What is MITUM?
 * data-centric blockchain for arbitrary data
 * secure anonymity voting system
 
-| If you want to know more about **MITUM**, visit `Mitum Document <https://mitum-doc.readthedocs.io/en/proto2/index.html>`_.
+| If you want to know more about **MITUM**, visit `Mitum Doc <https://mitum-doc.readthedocs.io/en/proto2/index.html>`_.
 
 ---------------------------------------------------
 Mitum Technical SPEC

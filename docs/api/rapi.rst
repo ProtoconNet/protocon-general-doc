@@ -1290,6 +1290,221 @@ Account
     }
 
 ---------------------------------------------------
+Currency
+---------------------------------------------------
+
+/currency
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+* It returns all currency ids in the network.
+
++----------------------------------+--------+
+| PATH                             | METHOD |
++==================================+========+
+| /currency                        | GET    |
++----------------------------------+--------+
+
+| **Response Example**
+
+* 200
+
+.. code-block:: json
+
+    {
+        "_hint": "mitum-currency-hal-v0.0.1",
+        "hint": "",
+        "_links": {
+            "currency:{currencyid}": {
+                "href": "/currency/{currencyid:.*}",
+                "templated": true
+            },
+            "self": {
+                "href": "/currency"
+            },
+            "currency:PEN": {
+                "href": "/currency/PEN"
+            }
+        }
+    }
+
+* 500
+
+.. code-block:: json
+
+    {
+        "_hint": "mitum-currency-problem-v0.0.1",
+        "title": "....",
+        "type": "https://github.com/spikeekips/mitum-currency/problems/others",
+        "detail": "...."
+    }
+
+/currency/{currency_id}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+* It returns the information of the currency by *currency id*.
+
++----------------------------------+--------+
+| PATH                             | METHOD |
++==================================+========+
+| /currency/{currency_id}          | GET    |
++----------------------------------+--------+
+
+| **Response Example**
+
+* 200
+
+.. code-block:: json
+
+    {
+        "_hint": "mitum-currency-hal-v0.0.1",
+        "hint": "mitum-currency-currency-design-v0.0.1",
+        "_embedded": {
+            "_hint": "mitum-currency-currency-design-v0.0.1",
+            "amount": {
+                "_hint": "mitum-currency-amount-v0.0.1",
+                "amount": "1000000000000000000000000000",
+                "currency": "PEN"
+            },
+            "genesis_account": "8iRVFAPiHKaeznfN3CmNjtFtjYSPMPKLuL6qkaJz8RLumca",
+            "policy": {
+                "_hint": "mitum-currency-currency-policy-v0.0.1",
+                "new_account_min_balance": "10",
+                "feeer": {
+                    "_hint": "mitum-currency-fixed-feeer-v0.0.1",
+                    "receiver": "8iRVFAPiHKaeznfN3CmNjtFtjYSPMPKLuL6qkaJz8RLumca",
+                    "amount": "1"
+                }
+            },
+            "aggregate": "1000000000000000000000000000"
+        },
+        "_links": {
+            "currency:{currencyid}": {
+                "templated": true,
+                "href": "/currency/{currencyid:.*}"
+            },
+            "block": {
+                "href": "/block/0"
+            },500
+            "operations": {
+                "href": "/block/operation/7rSkwgF6BmLmid13jiBJKaaRtgYXS7rtDBFSuNdUNPeo"
+            },
+            "self": {
+                "href": "/currency/PEN"
+            }
+        }
+    }
+
+* 500
+
+.. code-block:: json
+
+    {
+        "_hint": "mitum-currency-problem-v0.0.1",
+        "title": "....",
+        "type": "https://github.com/spikeekips/mitum-currency/problems/others",
+        "detail": "...."
+    }
+
+---------------------------------------------------
+Feefi
+---------------------------------------------------
+
+/feefi/{pool_id}/pool/{address}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++----------------------------------------+-----------------------+
+| PATH                                   | METHOD                |
++========================================+=======================+
+| /feefi/{pool_id}/pool/{address}        | GET                   |
++----------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+/feefi/{pool_id}/user/{address}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++----------------------------------------+-----------------------+
+| PATH                                   | METHOD                |
++========================================+=======================+
+| /feefi/{pool_id}/user/{address}        | GET                   |
++----------------------------------------+-----------------------+
+
+* It
+  
+| **Response Example**
+
+---------------------------------------------------
+NFT
+---------------------------------------------------
+
+/account/{address}/nftagent/{collection_symbol}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++-------------------------------------------------+-----------------------+
+| PATH                                            | METHOD                |
++=================================================+=======================+
+| /account/{address}/nftagent/{collection_symbol} | GET                   |
++-------------------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+/account/{address}/nfts
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++-------------------------------------------------+-----------------------+
+| PATH                                            | METHOD                |
++=================================================+=======================+
+| /account/{address}/nfts                         | GET                   |
++-------------------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+/nft/collection/{collection_symbol}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++-------------------------------------------------+-----------------------+
+| PATH                                            | METHOD                |
++=================================================+=======================+
+| /nft/collection/{collection_symbol}             | GET                   |
++-------------------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+/nft/collection/{collection_symbol}/nfts
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++-------------------------------------------------+-----------------------+
+| PATH                                            | METHOD                |
++=================================================+=======================+
+| /nft/collection/{collection_symbol}/nfts        | GET                   |
++-------------------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+/nft/{nft_id}
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
++-------------------------------------------------+-----------------------+
+| PATH                                            | METHOD                |
++=================================================+=======================+
+| /nft/{nft_id}                                   | GET                   |
++-------------------------------------------------+-----------------------+
+
+* It
+
+| **Response Example**
+
+---------------------------------------------------
 Builder
 ---------------------------------------------------
 
@@ -1923,122 +2138,6 @@ Builder
     "type": "https://github.com/spikeekips/mitum-currency/problems/others",
     "title": "...",
     "detail": "..."
-    }
-
-* 500
-
-.. code-block:: json
-
-    {
-        "_hint": "mitum-currency-problem-v0.0.1",
-        "title": "....",
-        "type": "https://github.com/spikeekips/mitum-currency/problems/others",
-        "detail": "...."
-    }
-
----------------------------------------------------
-Currency
----------------------------------------------------
-
-/currency
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-
-* It returns all currency ids in the network.
-
-+----------------------------------+--------+
-| PATH                             | METHOD |
-+==================================+========+
-| /currency                        | GET    |
-+----------------------------------+--------+
-
-| **Response Example**
-
-* 200
-
-.. code-block:: json
-
-    {
-        "_hint": "mitum-currency-hal-v0.0.1",
-        "hint": "",
-        "_links": {
-            "currency:{currencyid}": {
-                "href": "/currency/{currencyid:.*}",
-                "templated": true
-            },
-            "self": {
-                "href": "/currency"
-            },
-            "currency:PEN": {
-                "href": "/currency/PEN"
-            }
-        }
-    }
-
-* 500
-
-.. code-block:: json
-
-    {
-        "_hint": "mitum-currency-problem-v0.0.1",
-        "title": "....",
-        "type": "https://github.com/spikeekips/mitum-currency/problems/others",
-        "detail": "...."
-    }
-
-/currency/{currency_id}
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-
-* It returns the information of the currency by *currency id*.
-
-+----------------------------------+--------+
-| PATH                             | METHOD |
-+==================================+========+
-| /currency/{currency_id}          | GET    |
-+----------------------------------+--------+
-
-| **Response Example**
-
-* 200
-
-.. code-block:: json
-
-    {
-        "_hint": "mitum-currency-hal-v0.0.1",
-        "hint": "mitum-currency-currency-design-v0.0.1",
-        "_embedded": {
-            "_hint": "mitum-currency-currency-design-v0.0.1",
-            "amount": {
-                "_hint": "mitum-currency-amount-v0.0.1",
-                "amount": "1000000000000000000000000000",
-                "currency": "PEN"
-            },
-            "genesis_account": "8iRVFAPiHKaeznfN3CmNjtFtjYSPMPKLuL6qkaJz8RLumca",
-            "policy": {
-                "_hint": "mitum-currency-currency-policy-v0.0.1",
-                "new_account_min_balance": "10",
-                "feeer": {
-                    "_hint": "mitum-currency-fixed-feeer-v0.0.1",
-                    "receiver": "8iRVFAPiHKaeznfN3CmNjtFtjYSPMPKLuL6qkaJz8RLumca",
-                    "amount": "1"
-                }
-            },
-            "aggregate": "1000000000000000000000000000"
-        },
-        "_links": {
-            "currency:{currencyid}": {
-                "templated": true,
-                "href": "/currency/{currencyid:.*}"
-            },
-            "block": {
-                "href": "/block/0"
-            },500
-            "operations": {
-                "href": "/block/operation/7rSkwgF6BmLmid13jiBJKaaRtgYXS7rtDBFSuNdUNPeo"
-            },
-            "self": {
-                "href": "/currency/PEN"
-            }
-        }
     }
 
 * 500

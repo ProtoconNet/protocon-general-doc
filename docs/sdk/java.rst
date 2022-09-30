@@ -2,16 +2,9 @@
 Java
 ===================================================
 
-| This is SDK written in Java.
+| This is Mitum SDK written in Java.
 
-| Supported models are,
-
-* Mitum Currency
-* Mitum Document - blocksign, blockcity
-
-| Note that this document introduces how to create operations only for Mitum Currency.
-
-| If you would like to check the way to create operations for Mitum Document and the detail explanation for Mitum Currency, please refer to README of `mitum-java-util <https://github.com/ProtoconNet/mitum-java-util>`_.
+| For more information, please refer to README of `mitum-java-util <https://github.com/ProtoconNet/mitum-java-util>`_.
 
 ---------------------------------------------------
 Get Started
@@ -20,7 +13,7 @@ Get Started
 Prerequisite and Requirements
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| This package has been developed by,
+| This package was developed in the following environments:
 
 .. code-block:: shell
 
@@ -32,37 +25,33 @@ Prerequisite and Requirements
     $ javac -version
     javac 17.0.1
 
-| And this package is using this external Java Library.
-
-* `bitcoinj v0.14.7 <https://bitcoinj.org/>`_
-
 Installation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | `Download jar file <https://github.com/ProtoconNet/mitum-java-util/tree/main/release>`_ from the repository.
 
-| Now, the latest version is ``mitum-java-util-3.0.0-jdk17.jar``.
+| Now, the latest version is ``mitum-java-util-4.1.1-jdk17.jar``.
 
 | Using *Gradle*,
 
 .. code-block:: shell
 
-    implementation files('./lib/mitum-java-util-3.0.0-jdk17.jar')
+    implementation files('./lib/mitum-java-util-4.1.1-jdk17.jar')
 
 ---------------------------------------------------
 Make Your First Operation
 ---------------------------------------------------
 
-| This tutorial explains how to ``create-account`` by **mitum-java-util**.
+| This tutorial explains how to ``create an account`` by **mitum-java-util**.
 
-| If you want to check how to create ``key-updater`` and ``transfer`` operation, go **Support Operations** at the end of this section.
+| If you want to check how to create other operations, go to :ref:`java - support operations`.
 
 Get Available Account
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | Before start, you must hold the account registered in the network.
 
-| In Mitum Currency, only an existing account can create operations to be stored in a block.
+| Mitum handles only operations sent by accounts that already exist on the network normally.
 
 | An account consists of the following factors.
 
@@ -92,7 +81,7 @@ Create Generator
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
 | Most of the elements and factors for an operation are created by ``Generator``.
-| For Mitum Currency, use ``Generator.mc()``.
+| For Mitum Currency, use ``Generator.currency``.
 
 | When declaring a ``Generator``, ``network id`` should be provided.
 | ``network id`` is up to each network.
@@ -107,7 +96,7 @@ Create Generator
     */
     String id = "mitum";
     Generator generator = Generator.get(id);
-    CurrencyGenerator cgn = generator.mc();
+    CurrencyGenerator cgn = generator.currency;
 
 | For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
 
@@ -145,19 +134,19 @@ Create Operation Item
     import org.mitumc.sdk.key.*;
     import org.mitumc.sdk.operation.currency.*;
     */
-    Key key1 = generator.mc().key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50); // newKey(public key, weight)
-    Key key2 = generator.mc().key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50);
-    Keys keys = generator.mc().keys(new Key[]{ key1, key2 }, 100); // newKeys(key list, threshold)
+    Key key1 = generator.currency.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50); // newKey(public key, weight)
+    Key key2 = generator.currency.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50);
+    Keys keys = generator.currency.keys(new Key[]{ key1, key2 }, 100); // newKeys(key list, threshold)
 
-    Amount amount1 = generator.mc().amount("MCC", "10000"); // newAmount(currency id, amount)
-    Amount amount2 = generator.mc().amount("PEN", "20000");
+    Amount amount1 = generator.currency.amount("MCC", "10000"); // newAmount(currency id, amount)
+    Amount amount2 = generator.currency.amount("PEN", "20000");
 
-    CreateAccountsItem item = generator.mc().getCreateAccountsItem(keys, new Amount[]{ amount1, amount2 }); // newCreateAccountsItem(keys, amount list)
+    CreateAccountsItem item = generator.currency.getCreateAccountsItem(keys, new Amount[]{ amount1, amount2 }); // newCreateAccountsItem(keys, amount list)
 
-* First, create each key by ``Generator.mc().key(public key, weight)``.
-* Second, combine all keys with account threshold by ``Generator.mc().keys(key list, threshold)``.
-* Third, create each amount by ``Generator.mc().amount(currencyId, amount)``.
-* Finally, create an item by ``Generator.mc().getCreateAccountsItem(keys, amount list)``
+* First, create each key by ``Generator.currency.key(public key, weight)``.
+* Second, combine all keys with account threshold by ``Generator.currency.keys(key list, threshold)``.
+* Third, create each amount by ``Generator.currency.amount(currencyId, amount)``.
+* Finally, create an item by ``Generator.currency.getCreateAccountsItem(keys, amount list)``
 
 | Of course, you can customize the content of items by following constraints.
 
@@ -193,9 +182,9 @@ Create Operation Fact
     import org.mitumc.sdk.operation.currency.*; 
     */
     String senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"; // sender's account address; replace with your address
-    CreateAccountsFact fact = generator.mc().getCreateAccountsFact(senderAddress, new CreateAccountsItem[]{ item });  // newCreateAccountsFact(sender address, item list)
+    CreateAccountsFact fact = generator.currency.getCreateAccountsFact(senderAddress, new CreateAccountsItem[]{ item });  // newCreateAccountsFact(sender address, item list)
 
-| If you want to create fact with multiple items, put them all in item list of ``Generator.mc().getCreateAccountsFact(sender's address, item list)`` as an array.
+| If you want to create fact with multiple items, put them all in item list of ``Generator.currency.getCreateAccountsFact(sender's address, item list)`` as an array.
 
 Create Operation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -254,16 +243,32 @@ Create Seal
 
 | Put all operations to wrap in *operation list*.
 
+.. _java - support operations:
+
+---------------------------------------------------
 Support Operations
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+---------------------------------------------------
 
 | This section will introduce code example for each operation.
 
-| What Mitum Currency operations **mitum-java-util** supports are,
+| The following is a list of operations supported by each Mitum model.
 
-* Create Account
-* Key Updater
-* Transfer
++============================+===============================================================================================+
+| Model                      | Support Operations                                                                            |
++============================+===============================================================================================+
+| Currency                   | create-account, key-updater, transfer                                                         |
++----------------------------+-----------------------------------------------------------------------------------------------+
+| Currency Extension         | create-contract-account, withdraw                                                             |
++----------------------------+-----------------------------------------------------------------------------------------------+
+| Document                   | create-document, update-document, (sign-document)                                             |
++----------------------------+-----------------------------------------------------------------------------------------------+
+| Feefi                      | pool-register, pool-policy-updater, pool-deposit, pool-withdraw                               |
++----------------------------+-----------------------------------------------------------------------------------------------+
+| NFT                        | collection-register, collection-policy-updater, mint, transfer, burn, sign, approve, delegate |
++----------------------------+-----------------------------------------------------------------------------------------------+
+
+Currency
+'''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Create Account
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -291,13 +296,13 @@ Create Account
 
     Generator gn = Generator.get("mitum"); // network id: mitum
 
-    Key key = gn.mc().key("knW2wVXH399P9Xg8aVjAGuMkk3uTBZwcSpcy4aR3UjiAmpu", 100);
-    Keys keys = gn.mc().keys(new Key[]{ key }, 100); // becomes single-sig account
+    Key key = gn.currency.key("knW2wVXH399P9Xg8aVjAGuMkk3uTBZwcSpcy4aR3UjiAmpu", 100);
+    Keys keys = gn.currency.keys(new Key[]{ key }, 100); // becomes single-sig account
 
-    Amount amount = gn.mc().amount("MCC", "1000");
-    CreateAccountsItem item = gn.mc().getCreateAccountsItem(keys, new Amount[]{ amount });
+    Amount amount = gn.currency.amount("MCC", "1000");
+    CreateAccountsItem item = gn.currency.getCreateAccountsItem(keys, new Amount[]{ amount });
 
-    CreateAccountsFact fact = gn.mc().getCreateAccountsFact(sourceAddr, new CreateAccountsItem[]{ item });
+    CreateAccountsFact fact = gn.currency.getCreateAccountsFact(sourceAddr, new CreateAccountsItem[]{ item });
 
     Operation createAccount = gn.getOperation(fact);
     createAccount.addSign(senderPrivateKey);
@@ -344,11 +349,11 @@ Key Updater
     String targetPrivateKey = "KzejtzpPZFdLUXo2hHouamwLoYoPtoffKo5zwoJXsBakKzSvTdbzmpr";
     String targetAddress = "JDhSSB3CpRjwM8aF2XX23nTpauv9fLhxTjWsQRm9cJ7umca";
 
-    Key key1 = gn.mc().key("22ndFZw57ax28ydC3ZxzLJMNX9oMSqAfgauyWhC17pxDpmpu", 50);
-    Key key2 = gn.mc().key("22wD5RWsRFAr8mHkYmmyUDzKf6VBNgjHcgc3YhKxCvrZDmpu", 50);
-    Keys newKeys = gn.mc().keys(new Key[]{ key1, key2 }, 100);
+    Key key1 = gn.currency.key("22ndFZw57ax28ydC3ZxzLJMNX9oMSqAfgauyWhC17pxDpmpu", 50);
+    Key key2 = gn.currency.key("22wD5RWsRFAr8mHkYmmyUDzKf6VBNgjHcgc3YhKxCvrZDmpu", 50);
+    Keys newKeys = gn.currency.keys(new Key[]{ key1, key2 }, 100);
 
-    KeyUpdaterFact fact = gn.mc().getKeyUpdaterFact(sourceAddr, "MCC", newKeys); // getKeyUpdaterFact(target address, currency for fee, new keys)
+    KeyUpdaterFact fact = gn.currency.getKeyUpdaterFact(sourceAddr, "MCC", newKeys); // getKeyUpdaterFact(target address, currency for fee, new keys)
     Operation keyUpdater = gn.getOperation(fact);
     keyUpdater.addSign(targetPrivateKey);
 
@@ -394,17 +399,118 @@ Transfer
     String senderAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca";
     String receiverAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca";
 
-    Amount amount1 = gn.mc().amount("1000000", "MCC")
-    Amount amount2 = gn.mc().amount("15000", "PEN")
+    Amount amount1 = gn.currency.amount("1000000", "MCC")
+    Amount amount2 = gn.currency.amount("15000", "PEN")
 
-    TransfersItem item = gn.mc().getTransfersItem(receiverAddress, new Amount[]{ amount1, amount2 }); // getTransfersItem(receiver address, amount list)
-    TransfersFact fact = gn.mc().getTransfersFact(sourceAddr, new TransfersItem[]{ item }); // getTransfersFact(sender address, item list)
+    TransfersItem item = gn.currency.getTransfersItem(receiverAddress, new Amount[]{ amount1, amount2 }); // getTransfersItem(receiver address, amount list)
+    TransfersFact fact = gn.currency.getTransfersFact(sourceAddr, new TransfersItem[]{ item }); // getTransfersFact(sender address, item list)
 
     Operation transfer = gn.getOperation(fact);
     transfer.addSign(senderPrivateKey); // suppose sender is single-sig  
 
-| There are other operations that **mitum-java-util** supports, like operations of *Mitum Document, but this document doesn't provide examples of those operations.
-| Refer to `README <https://github.com/ProtoconNet/mitum-java-util/blob/main/README.md>`_ if necessary.
+Currency Extension
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Create Contract Account
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+| You can create a contract account by sending this operation.
+
+| The steps for creating a create-contract-account operation are the same as for create-account.
+
+| However, the difference between contract account and general account is that in the case of contract account, there are no public keys in the account information.
+
+| Therefore, the contract account cannot send or start an operation as an operation sender, and it cannot arbitrarily send tokens from the account to another account.
+
+| Only the owner of the contract account can withdraw tokens sent to it to his account through withdraw operation.
+
+| Below is an example for creating a create-contract-account operation, and the description of the example is omitted because it is very similar to the case of create-account.
+
+.. code-block:: javascript
+
+    import { Generator } from 'mitumc'
+
+    const networkId = 'mitum'
+    const generator = new Generator('mitum')
+    const currencyGenerator = generator.currency
+
+    const key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50)
+    const key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50)
+    
+    const keys = currencyGenerator.keys([key1, key2], 100)
+
+    const amount1 = currencyGenerator.amount("MCC", "10000")
+    const amount2 = currencyGenerator.amount("PEN", "20000")
+    const amounts = currencyGenerator.amounts([amount1, amount2]);
+
+    const createAccountsItem = currencyGenerator.extension.getCreateContractAccountsItem(keys, amounts);
+
+    const senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
+    const createAccountsFact = currencyGenerator.extension.getCreateContractAccountsFact(senderAddress, [createAccountsItem])
+
+    const senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr"
+    
+    const createContractAccounts = generator.getOperation(createContractAccounts, "")
+    createContractAccounts.addSign(senderPrivateKey);
+
+Withdraw
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Document
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Create Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Update Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sign Document
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Feefi
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Pool Register
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pool Policy Updater
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pool Deposit
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Pool Withdraw
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+NFT
+'''''''''''''''''''''''''''''''''''''''''''''''''''
+
+Collection Register
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Collection Policy Updater
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Mint
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Transfer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Burn
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Sign
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Delegate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Approve
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ---------------------------------------------------
 Sign
@@ -587,9 +693,9 @@ Get Account Address with Keys
     */
     Generator generator = Generator.get("mitum");
 
-    Key key1 = generator.mc().key("vmk1iprMrs8V1NkA9DsSL3XQNnUW9SmFL5RCVJC24oFYmpu", 40);
-    Key key2 = generator.mc().key("29BQ8gcVfJd5hPZCKj335WSe4cyDe7TGrjam7fTrkYNunmpu", 30);
-    Key key3 = generator.mc().key("uJKiGLBeXF3BdaDMzKSqJ4g7L5kAukJJtW3uuMaP1NLumpu", 30);
+    Key key1 = generator.currency.key("vmk1iprMrs8V1NkA9DsSL3XQNnUW9SmFL5RCVJC24oFYmpu", 40);
+    Key key2 = generator.currency.key("29BQ8gcVfJd5hPZCKj335WSe4cyDe7TGrjam7fTrkYNunmpu", 30);
+    Key key3 = generator.currency.key("uJKiGLBeXF3BdaDMzKSqJ4g7L5kAukJJtW3uuMaP1NLumpu", 30);
 
     Keys keys = generator.currency().keys(new Key[]{ key1, key2, key3 }, 100);
 
@@ -605,8 +711,8 @@ Generator
 
 | Before you use ``Generator``, ``network id`` must be set.
 
-* For **Mitum Currency**, use ``Generator.mc()``.
-* For **Mitum Document**, use ``Generator.md()``.
+* For **Mitum Currency**, use ``Generator.currency``.
+* For **Mitum Document**, use ``Generator.document``.
 
 | For details of generating operations for **Mitum Document**, refer to `README <https://github.com/ProtoconNet/mitum-java-util/blob/main/README.md>`_.
 
@@ -618,42 +724,42 @@ Generator
     String id = "mitum";
     Generator generator = Generator.get(id);
 
-    CurrencyGenerator cgn = generator.mc(); // org.mitumc.sdk.operation.currency.CurrencyGenerator;
-    DocumentGenerator bgn = generator.md(); // org.mitumc.sdk.operation.document.DocumentGenerator;
+    CurrencyGenerator cgn = generator.currency; // org.mitumc.sdk.operation.currency.CurrencyGenerator;
+    DocumentGenerator bgn = generator.document; // org.mitumc.sdk.operation.document.DocumentGenerator;
 
 | All methods of ``Generator`` provides are,
 
 .. code-block:: java
 
     /* For Mitum Currency */
-    Generator.mc().key(String key, int weight);
-    Generator.mc().keys(Key[] keys, int threshold); 
-    Generator.mc().amount(String currency, String amount);
-    Generator.mc().getCreateAccountsItem(Keys keys, Amount[] amounts);
-    Generator.mc().getTransfersItem(String receiver, Amount[] amounts);
-    Generator.mc().getCreateAccountsFact(String sender, CreateAccountsItem[] items);
-    Generator.mc().getKeyUpdaterFact(String target, String currencyId, Keys keys);
-    Generator.mc().getTransfersFact(String sender, TransfersItem[] items);
+    Generator.currency.key(String key, int weight);
+    Generator.currency.keys(Key[] keys, int threshold); 
+    Generator.currency.amount(String currency, String amount);
+    Generator.currency.getCreateAccountsItem(Keys keys, Amount[] amounts);
+    Generator.currency.getTransfersItem(String receiver, Amount[] amounts);
+    Generator.currency.getCreateAccountsFact(String sender, CreateAccountsItem[] items);
+    Generator.currency.getKeyUpdaterFact(String target, String currencyId, Keys keys);
+    Generator.currency.getTransfersFact(String sender, TransfersItem[] items);
     
     /* For Mitum Document */
-    Generator.md().getCreateDocumentsItem(Document document, String currencyId);
-    Generator.md().getUpdateDocumentsItem(Document document, String currencyId);
-    Generator.md().getCreateDocumentsFact(String sender, CreateDocumentsItem[] items);
-    Generator.md().getUpdateDocumentsFact(String sender, UpdateDocumentsItem[] items);
+    Generator.document.getCreateDocumentsItem(Document document, String currencyId);
+    Generator.document.getUpdateDocumentsItem(Document document, String currencyId);
+    Generator.document.getCreateDocumentsFact(String sender, CreateDocumentsItem[] items);
+    Generator.document.getUpdateDocumentsFact(String sender, UpdateDocumentsItem[] items);
     
     /* For Blocksign */
-    Generator.md().bs().user(String address, String signCode, boolean signed);
-    Generator.md().bs().document(String documentId, String owner, String fileHash, BlockSignUser creator, String title, String size, BlockSignUser[] signers);
-    Generator.md().bs().getSignDocumentsItem(String documentId, String owner, String currencyId);
-    Generator.md().bs().getSignDocumentsFact(String sender, SignDocumentsItem[] items);DocumentsFact(String sender, BlockCityItem<T>[] items);
+    Generator.document.blocksign.user(String address, String signCode, boolean signed);
+    Generator.document.blocksign.document(String documentId, String owner, String fileHash, BlockSignUser creator, String title, String size, BlockSignUser[] signers);
+    Generator.document.blocksign.getSignDocumentsItem(String documentId, String owner, String currencyId);
+    Generator.document.blocksign.getSignDocumentsFact(String sender, SignDocumentsItem[] items);DocumentsFact(String sender, BlockCityItem<T>[] items);
 
     /* For Blockcity */
-    Generator.md().bc().candidate(String address, String nickname, String manifest, int count);
-    Generator.md().bc().userStatistics(int hp, int strength, int agility, int dexterity, int charisma, int intelligence, int vital);
-    Generator.md().bc().document(String documentId, String owner, int gold, int bankGold, UserStatistics statistics);
-    Generator.md().bc().document(String documentId, String owner, String address, String area, String renter, String account, String rentDate, int period);
-    Generator.md().bc().document(String documentId, String owner, int round, String endTime, Candidate[] candidates, String bossName, String account, String office);
-    Generator.md().bc().document(String documentId, String owner, String name, String account, String date, String usage, String app);
+    Generator.document.blockcity.candidate(String address, String nickname, String manifest, int count);
+    Generator.document.blockcity.userStatistics(int hp, int strength, int agility, int dexterity, int charisma, int intelligence, int vital);
+    Generator.document.blockcity.document(String documentId, String owner, int gold, int bankGold, UserStatistics statistics);
+    Generator.document.blockcity.document(String documentId, String owner, String address, String area, String renter, String account, String rentDate, int period);
+    Generator.document.blockcity.document(String documentId, String owner, int round, String endTime, Candidate[] candidates, String bossName, String account, String office);
+    Generator.document.blockcity.document(String documentId, String owner, String name, String account, String date, String usage, String app);
 
     /* Common */
     Generator.getOperation(OperationFact fact);

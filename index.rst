@@ -22,7 +22,9 @@ Contents
    :maxdepth: 1
    :caption: Protocon Blockchain
    
-   docs/bc/mitum
+   docs/bc/intro
+   docs/bc/seal-and-operation
+   docs/bc/blockdata
 
 .. toctree::
    :maxdepth: 1
@@ -30,27 +32,29 @@ Contents
    
    docs/model/intro
    docs/model/currency
+   docs/model/currency-extension
+   docs/model/document
+   docs/model/feefi
+   docs/model/nft
 
 .. toctree::
    :maxdepth: 1
-   :caption: Run a Node
+   :caption: Quick Start
 
-   docs/run/intro
-   docs/run/config
-   docs/run/run
-   docs/run/handover
+   docs/start/intro
+   docs/start/config
+   docs/start/run
+   docs/start/handover
 
 .. toctree::
    :maxdepth: 1
    :caption: CLI
 
    docs/cli/intro
-   docs/cli/node
    docs/cli/key
+   docs/cli/node
    docs/cli/seal
-   docs/cli/storage
-   docs/cli/deploy
-   docs/cli/etc
+   docs/cli/models
    docs/cli/lookup
 
 .. toctree::
