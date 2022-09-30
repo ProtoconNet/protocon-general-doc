@@ -194,6 +194,7 @@ Four Suffrage Nodes
 
 
 .. image:: ../images/run.buildnet/4_suffrage_nodes.jpeg
+    :width: 820
     :scale: 50 
     :alt: Four Suffrage Nodes
 
@@ -414,6 +415,7 @@ Four Suffrage Nodes and One Sync Node
 
 
 .. image:: ../images/run.buildnet/4_suffrage_nodes_1_sync_node.jpeg
+    :width: 820
     :scale: 50 
     :alt: Four Suffrage Nodes
 
@@ -703,6 +705,7 @@ Node Discovery Scenario
 
 
 .. image:: ../images/run.buildnet/node_discovery_case0.jpeg
+    :width: 820
     :scale: 50 
     :alt: Node Discovery Case 0
 
@@ -719,6 +722,7 @@ Node Discovery Scenario
 
 
 .. image:: ../images/run.buildnet/node_discovery_case1.jpeg
+    :width: 820
     :scale: 50 
     :alt: Node Discovery Case 0
 
@@ -735,6 +739,7 @@ Node Discovery Scenario
 
 
 .. image:: ../images/run.buildnet/node_discovery_case2.jpeg
+    :width: 820
     :scale: 50 
     :alt: Node Discovery Case 0
 
@@ -751,6 +756,7 @@ Node Discovery Scenario
 
 
 .. image:: ../images/run.buildnet/node_discovery_case3.jpeg
+    :width: 820
     :scale: 50 
     :alt: Node Discovery Case 0
 
@@ -768,5 +774,6 @@ Node Discovery Scenario
 
 
 .. image:: ../images/run.buildnet/node_discovery_case4.jpeg
+    :width: 820
     :scale: 50 
     :alt: Node Discovery Case 0
