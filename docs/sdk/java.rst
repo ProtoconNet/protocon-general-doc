@@ -257,15 +257,15 @@ Support Operations
 +============================+===============================================================================================+
 | Model                      | Support Operations                                                                            |
 +============================+===============================================================================================+
-| Currency                   | create-account, key-updater, transfer                                                         |
+| Currency                   | create account, key updater, transfer                                                         |
 +----------------------------+-----------------------------------------------------------------------------------------------+
-| Currency Extension         | create-contract-account, withdraw                                                             |
+| Currency Extension         | create contract account, withdraw                                                             |
 +----------------------------+-----------------------------------------------------------------------------------------------+
-| Document                   | create-document, update-document, (sign-document)                                             |
+| Document                   | create document, update document, (sign document)                                             |
 +----------------------------+-----------------------------------------------------------------------------------------------+
-| Feefi                      | pool-register, pool-policy-updater, pool-deposit, pool-withdraw                               |
+| Feefi                      | pool register, pool policy updater, pool deposit, pool withdraw                               |
 +----------------------------+-----------------------------------------------------------------------------------------------+
-| NFT                        | collection-register, collection-policy-updater, mint, transfer, burn, sign, approve, delegate |
+| NFT                        | collection register, collection policy updater, mint, transfer, burn, sign, approve, delegate |
 +----------------------------+-----------------------------------------------------------------------------------------------+
 
 Currency
