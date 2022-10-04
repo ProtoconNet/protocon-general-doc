@@ -13,14 +13,12 @@ Get Started
 Prerequisite and Requirements
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
-| This package has been developed by,
+| The development environment is as follows:
 
 .. code-block:: shell
 
     $ python --version
     Python 3.9.2
-
-| ``python 3.9 or later`` is recommended.
 
 Installation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -41,6 +39,8 @@ Installation
 
     $ pip install -r requirements.txt
 
+.. _python - Make Your First Operation:
+
 ---------------------------------------------------
 Make Your First Operation
 ---------------------------------------------------
@@ -54,7 +54,7 @@ Get Available Account
 
 | Before start, you must hold the account registered in the network.
 
-| In Mitum Currency, only an existing account can create operations to be stored in a block.
+| Mitum handles only operations sent by accounts that already exist on the network normally.
 
 | An account consists of the following factors.
 
@@ -70,7 +70,7 @@ Get Available Account
     - The sum of all weights of the account should be over or equal to threshold
 
 | If you haven't made an account yet, ask other accounts to create your account first.
-| You can get keypairs for your account in **Details - Get Mitum Keypair** section.
+| You can get keypairs for your account in :ref:`python - Get Mitum Keypair` section.
 | Hand your (public key, weight) pairs and threshold to the account holder who helped create your new account.
 
 | For signing, you must remember private keys corresponding each public key of the account. **Don't let not allowed users to know your private key!**
@@ -95,11 +95,10 @@ Create Generator
 
     from mitumc import Generator
 
-    networkId = 'mitum'
     generator = Generator('mitum')
     currencyGenerator = generator.currency
 
-| For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
+| For details about ``Generator``, go to :ref:`python - Major Classes` and refer to **Generator**.
 
 | In addition, you must have an available account on the network.
 
@@ -135,15 +134,15 @@ Create Operation Item
     key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50)
     keys = currencyGenerator.keys([key1, key2], 100) # keys(keyList, threshold)
 
-    amount1 = currencyGenerator.amount(10000, 'MCC') # amount(amount, currency id)
-    amount1 = currencyGenerator.amount(20000, 'PEN')
+    amount1 = currencyGenerator.amount('MCC', 1000) # amount(currency, amount)
+    amount1 = currencyGenerator.amount('PEN', 20000)
     amounts = currencyGenerator.amounts([amount]) # amounts(amountList)
 
     createAccountsItem = currencyGenerator.getCreateAccountsItem(keys, amounts)
 
 * First, create each key by ``Generator.currency.key(public key, weight)``.
 * Second, combine all keys with account threshold by ``Generator.currency.keys(key list, threshold)``.
-* Third, create each amount by ``Generator.currency.amount(amount, currencyId)``.
+* Third, create each amount by ``Generator.currency.amount(currencyId, amount)``.
 * Forth, combine all amounts by ``Generator.currency.amounts(amount list)``.
 * Finally, create an item by ``Generator.currency.getCreateAccountsItem(keys, amounts)``
 
@@ -290,7 +289,7 @@ Create Account
     key = gn.key("2177RF13ZZXpdE1wf7wu5f9CHKaA2zSyLW5dk18ExyJ84mpu", 100)
     keys = gn.keys([key], 100)
 
-    amount = gn.amount(100, 'MCC')
+    amount = gn.amount('MCC', 100)
     amounts = gn.amounts([amount])
 
     createAccountsItem = gn.getCreateAccountsItem(keys, amounts)
@@ -299,7 +298,7 @@ Create Account
     createAccounts = generator.getOperation(createAccountsFact, "")
     createAccounts.addFactSign(srcPriv)
 
-| The detailed explanation was omitted. Refer to the beginning part of 'Make Your First Operation.'.
+| The detailed explanation was omitted. Refer to the beginning part of :ref:`python - Make Your First Operation`.
 
 Key Updater
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -386,8 +385,8 @@ Transfer
     senderAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca"
     receiverAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
 
-    amount = gn.amount(1000000, 'MCC')
-    amount = gn.amount(15000, 'PEN')
+    amount = gn.amount('MCC', 1000000)
+    amount = gn.amount('PEN', 15000)
     amounts = gn.amounts([amount1, amount2])
 
     transfersItem = gn.getTransfersItem(receiverAddress, amounts) # getTransfersItem(receiver address, amounts)
@@ -395,9 +394,6 @@ Transfer
 
     transfers = generator.getOperation(transfersFact, "")
     transfers.addFactSign(senderPrivateKey)  
-
-| There are other operations that **mitum-py-util** supports, like operations of *Mitum Document*, but this document doesn't provide examples of those operations.
-| Refer to `README <https://github.com/ProtoconNet/mitum-py-util/blob/master/README.md>`_ if necessary.
 
 Currency Extension
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -417,91 +413,55 @@ Create Contract Account
 
 | Below is an example for creating a create-contract-account operation, and the description of the example is omitted because it is very similar to the case of create-account.
 
-.. code-block:: javascript
+.. code-block:: python
 
-    import { Generator } from 'mitumc'
+    from mitumc import Generator
 
-    const networkId = 'mitum'
-    const generator = new Generator('mitum')
-    const currencyGenerator = generator.currency
+    senderPrivateKey = "L1V19fBjhnxNyfuXLWw6Y5mjFSixzdsZP4obkXEERskGQNwSgdm1mpr"
+    senderAddress = "5fbQg8K856KfvzPiGhzmBMb6WaL5AsugUnfutgmWECPbmca"
 
-    const key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50)
-    const key2 = currencyGenerator.key("pWoFhRP3C7ocebSRPxTPfeaJZpnyKpEkxQqi6fAD4SHompu", 50)
-    
-    const keys = currencyGenerator.keys([key1, key2], 100)
+    generator = Generator('mitum')
+    gn = generator.currency
 
-    const amount1 = currencyGenerator.amount("MCC", "10000")
-    const amount2 = currencyGenerator.amount("PEN", "20000")
-    const amounts = currencyGenerator.amounts([amount1, amount2]);
+    key = gn.key("2177RF13ZZXpdE1wf7wu5f9CHKaA2zSyLW5dk18ExyJ84mpu", 100)
+    keys = gn.keys([key], 100)
 
-    const createAccountsItem = currencyGenerator.extension.getCreateContractAccountsItem(keys, amounts);
+    amount = gn.amount('MCC', 100)
+    amounts = gn.amounts([amount])
 
-    const senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
-    const createAccountsFact = currencyGenerator.extension.getCreateContractAccountsFact(senderAddress, [createAccountsItem])
+    createContractAccountsItem = gn.extension.getCreateContractAccountsItem(keys, amounts)
+    createContractAccountsFact = gn.extension.getCreateContractAccountsFact(srcAddr, [createContractAccountsItem])
 
-    const senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr"
-    
-    const createContractAccounts = generator.getOperation(createContractAccounts, "")
-    createContractAccounts.addSign(senderPrivateKey);
+    createContractAccounts = generator.getOperation(createContractAccountsFact, "")
+    createContractAccounts.addFactSign(srcPriv)
 
 Withdraw
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+| The token deposited in the contract account can be withdrawn by its owner through the withdraw operation.
 
+.. code-block:: python
 
-Document
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+    from mitumc import Generator
 
-Create Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    generator = Generator('mitum')
+    gn = generator.currency
 
-Update Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    senderPrivateKey = "KzdeJMr8e2fbquuZwr9SEd9e1ZWGmZEj96NuAwHnz7jnfJ7FqHQBmpr"
+    senderAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca"
+    targetAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca"
 
-Sign Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    amount = gn.amount('MCC', 1000000)
+    amount = gn.amount('PEN', 15000)
+    amounts = gn.amounts([amount1, amount2])
 
-Feefi
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+    withdrawsItem = gn.extension.getWithdrawsItem(targetAddress, amounts)
+    withdrawsFact = gn.extension.getWithdrawsFact(senderAddress, [withdrawsItem])
 
-Pool Register
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    withdraws = generator.getOperation(withdrawsFact, "")
+    withdraws.addFactSign(senderPrivateKey)  
 
-Pool Policy Updater
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool Deposit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool Withdraw
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-NFT
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-
-Collection Register
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Collection Policy Updater
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Mint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Transfer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Burn
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Sign
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Delegate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Approve
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+| How to create an operation for document, feefi, and NFT can be found in `README <https://github.com/ProtoconNet/mitum-py-util#readme>`_ in Github.
 
 ---------------------------------------------------
 Sign
@@ -587,6 +547,8 @@ Add Fact Sign to Operation
 ---------------------------------------------------
 Details
 ---------------------------------------------------
+
+.. _python - Get Mitum Keypair:
 
 Get Mitum Keypair
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -682,6 +644,8 @@ Get Account Address with Keys
     keys = gn.keys([key1, key2, key3], 100)
     address = keys.address # your address
 
+.. _python - Major Classes:
+
 Major Classes
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -704,7 +668,10 @@ Generator
 
     generator = Generator('mitum')
     currencyGenerator = generator.currency
+    extensionGenerator = generator.currency.extension
     documentGenerator = generator.document
+    feefiGenerator = generator.feefi
+    nftGenerator = generator.nft
 
 | All methods of ``Generator`` provides are,
 
@@ -720,6 +687,12 @@ Generator
     Generator.currency.getCreateAccountsFact(sender, items)
     Generator.currency.getKeyUpdaterFact(target, currencyId, keys)
     Generator.currency.getTransfersFact(sender, items)
+
+    # For Mitum Currency Extension
+    Generator.currency.extension.getCreateContractAccountsItem(keys, amounts)
+    Generator.currency.extension.getWithdrawsItem(target, amounts)
+    Generator.currency.extension.getCreateContractAccountsFact(sender, items)
+    Generator.currency.extension.getWithdrawsFact(sender, items)
 
     # For Mitum Document
     Generator.document.getCreateDocumentsItem(document, currencyId)
@@ -740,6 +713,33 @@ Generator
     Generator.document.blockcity.landDocument(documentId, owner, address, area, renter, account, rentDate, period)
     Generator.document.blockcity.voteDocument(documentId, owner, round, endTime, candidates, bossName, account, office)
     Generator.document.blockcity.historyDocument(documentId, owner, name, account, date, usage, application)
+
+    # For Mitum Feefi
+    Generator.feefi.getPoolRegisterFact(sender, target, initFee, incomeCid, outgoCid, cid)
+    Generator.feefi.getPoolPolicyUpdaterFact(sender, target, fee, incomeCid, outgoCid, cid)
+    Generator.feefi.getPoolDepositsFact(sender, pool, incomeCid, outgoCid, amount)
+    Generator.feefi.getPoolWithdrawFact(sender, pool, incomeCid, outgoCid, amounts)
+
+    # For Mitum NFT
+    Generator.nft.signer(account, share, signed)
+    Generator.nft.signers(total, _signers)
+    Generator.nft.collectionRegisterForm(target, symbol, name, royalty, uri, whites)
+    Generator.nft.collectionPolicy(name, royalty, uri, whites)
+    Generator.nft.mintForm(hash, uri, creators, copyrighters)
+    Generator.nft.getMintItem(collection, form, cid)
+    Generator.nft.getTransferItem(receiver, nid, cid)
+    Generator.nft.getBurnItem(nid, cid)
+    Generator.nft.getApproveItem(approved, nid, cid)
+    Generator.nft.getDelegateItem(collection, agent, mode, cid) # mode: ["allow" || "cancel"]
+    Generator.nft.getSignItem(qualification, nid, cid) # qualification: ["creator" || "copyrighter"]
+    Generator.nft.getCollectionRegisgerFact(sender, form, cid)
+    Generator.nft.getCollectioPolicyUpdaterFact(sender, collection, policy, cid)
+    Generator.nft.getMintFact(sender, items)
+    Generator.nft.getTransferFact(sender, items)
+    Generator.nft.getBurnFact(sender, items)
+    Generator.nft.getApproveFact(sender, items)
+    Generator.nft.getDelegateFact(sender, items)
+    Generator.nft.getSignFact(sender, items)
 
     # Common
     Generator.getOperation(fact, memo)

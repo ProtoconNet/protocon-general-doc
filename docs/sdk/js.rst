@@ -15,7 +15,7 @@ Prerequisite and Requirements
 
 | To use **mitum-js-util** and build it, ``npm`` or ``yarn`` should be installed.
 
-| Especially, this package has been developed by,
+| The development environment is as follows:
 
 .. code-block:: shell
 
@@ -24,8 +24,6 @@ Prerequisite and Requirements
 
     $ node --version
     7.24.0
-
-| ``npm version 16.10.0 or later`` is recommended.
 
 Installation
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -56,6 +54,8 @@ Installation
 
     $ npm link mitumc
 
+.. _js - Make Your First Operation:
+
 ---------------------------------------------------
 Make Your First Operation
 ---------------------------------------------------
@@ -69,7 +69,7 @@ Get Available Account
 
 | Before start, you must hold the account registered in the network.
 
-| In Mitum, only an existing account can create operations to be stored in a block.
+| Mitum handles only operations sent by accounts that already exist on the network normally.
 
 | An account consists of the following factors.
 
@@ -85,7 +85,7 @@ Get Available Account
     - The sum of all weights of the account should be over or equal to threshold
 
 | If you haven't made an account yet, ask other accounts to create your account first.
-| You can get keypairs for your account in **Details - Get Mitum Keypair** section.
+| You can get keypairs for your account in :ref:`js - Get Mitum Keypair`` section.
 | Hand your (public key, weight) pairs and threshold to the account holder who helped create your new account.
 
 | For signing, you must remember private keys corresponding each public key of the account. **Don't let not allowed users to know your private key!**
@@ -110,11 +110,10 @@ Create Generator
 
     import { Generator } from 'mitumc'
 
-    const networkId = 'mitum'
     const generator = new Generator('mitum')
     const currencyGenerator = generator.currency
 
-| For details about ``Generator``, go to **Details - Major Classes** and refer to **Generator**.
+| For details about ``Generator``, go to :ref:`js - Major Classes` and refer to **Generator**.
 
 | In addition, you must have an available account on the network.
 
@@ -297,7 +296,6 @@ Create Account
 
     import { Generator } from 'mitumc'
 
-    const networkId = 'mitum'
     const generator = new Generator('mitum')
     const currencyGenerator = generator.currency
 
@@ -320,7 +318,7 @@ Create Account
     const createAccounts = generator.getOperation(createAccountsFact, "")
     createAccounts.addSign(senderPrivateKey);
 
-| The detailed explanation was omitted. Refer to the beginning part of 'Make Your First Operation.'.
+| The detailed explanation was omitted. Refer to the beginning part of :ref:`js - Make Your First Operation`.
 
 Key Updater
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -352,7 +350,6 @@ Key Updater
 
     import { Generator } from 'mitumc'
 
-    const networkId = 'mitum'
     const generator = new Generator('mitum')
     const currencyGenerator = generator.currency
 
@@ -361,7 +358,7 @@ Key Updater
 
     const newPub1 = currencyGenerator.key("22ndFZw57ax28ydC3ZxzLJMNX9oMSqAfgauyWhC17pxDpmpu", 100)
     const newPub2 = currencyGenerator.key("22wD5RWsRFAr8mHkYmmyUDzKf6VBNgjHcgc3YhKxCvrZDmpu", 100)
-    const newKeys = currencyGenerator.createKeys([newPub1, newPub2], 100)
+    const newKeys = currencyGenerator.keys([newPub1, newPub2], 100)
 
     const keyUpdaterFact = currencyGenerator.getKeyUpdaterFact(targetAddress, "MCC", newKeys) // getKeyUpdaterFact(target address, currency for fee, new keys)
     
@@ -401,7 +398,6 @@ Transfer
 
     import { Generator } from 'mitumc'
 
-    const networkId = 'mitum'
     const generator = new Generator('mitum')
     const currencyGenerator = generator.currency
 
@@ -442,7 +438,7 @@ Create Contract Account
     import { Generator } from 'mitumc'
 
     const networkId = 'mitum'
-    const generator = new Generator('mitum')
+    const generator = new Generator(networkId)
     const currencyGenerator = generator.currency
 
     const key1 = currencyGenerator.key("kpYjRwq6gQrjvzeqQ91MNiCcR9Beb9sD67SuhQ6frPGwmpu", 50)
@@ -467,62 +463,30 @@ Create Contract Account
 Withdraw
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+| The token deposited in the contract account can be withdrawn by its owner through the withdraw operation.
 
+.. code-block:: javascript
 
-Document
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+    import { Generator } from 'mitumc';
+    
+    const generator = new Generator('mitum')
+    const currencyGenerator = generator.currency
 
-Create Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const amount = currencyGenerator.amount("MCC", "100");
+    const amounts = currencyGenerator.amounts([amount]);
 
-Update Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const targetAddress = "2D5vAb2X3Rs6ZKPjVsK6UHcnGxGfUuXDR1ED1hcvUHqsmca";
+    const withdrawsItem = currencyGenerator.extension.getWithdrawsItem(targetAddress,  amounts);
 
-Sign Document
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    const senderAddress = "CY1pkxsqQK6XMbnK4ssDNbDR2K7mitSwdS27DwBjd3Gcmca";
+    const withdrawsFact = currencyGenerator.extension.getWithdrawsFact(senderAddress, [withdrawsItem])
+   
+    const senderPrivateKey = "KxD8T82nfwsUmQu3iMXENm93YTTatGFp1AYDPqTo5e6ycvY1xNXpmpr";
 
-Feefi
-'''''''''''''''''''''''''''''''''''''''''''''''''''
+    const withdraws = generator.getOperation(withdrawsFact, "")
+    withdraws.addSign(senderPrivateKey)
 
-Pool Register
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool Policy Updater
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool Deposit
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Pool Withdraw
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-NFT
-'''''''''''''''''''''''''''''''''''''''''''''''''''
-
-Collection Register
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Collection Policy Updater
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Mint
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Transfer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Burn
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Sign
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Delegate
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Approve
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+| How to create an operation for document, feefi, and NFT can be found in `README <https://github.com/ProtoconNet/mitum-js-util#readme>`_ in Github.
 
 ---------------------------------------------------
 Sign
@@ -614,6 +578,8 @@ Add Fact Sign to Operation
 ---------------------------------------------------
 Details
 ---------------------------------------------------
+
+.. _js - Get Mitum Keypair:
 
 Get Mitum Keypair
 '''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -719,6 +685,8 @@ Get Account Address with Keys
 
     const address = keys.address // this is what you want to get!
 
+.. _js - Major Classes:
+
 Major Classes
 '''''''''''''''''''''''''''''''''''''''''''''''''''
 
@@ -743,7 +711,10 @@ Generator
     const generator = new Generator(networkId)
 
     const currencyGenerator = generator.currency
+    const extensionGenerator = generator.currency.extension
     const documentGenerator = generator.document
+    const feefiGenerator = generator.feefi
+    const nftGenerator = generator.nft
 
 | All methods of ``Generator`` provides are,
 
@@ -759,6 +730,12 @@ Generator
     Generator.currency.getCreateAccountsFact(sender, items)
     Generator.currency.getKeyUpdaterFact(target, currencyId, keys)
     Generator.currency.getTransfersFact(sender, items)    
+
+    /* For Mitum Currency Extension */
+    Generator.currency.extension.getCreateContractAccountsItem(keys, amounts)
+    Generator.currency.extension.getWithdrawsItem(target, amounts)
+    Generator.currency.extension.getCreateContractAccountsFact(sender, items)
+    Generator.currency.extension.getWithdrawsFact(sender, items)
 
     /* For Mitum Document */
     Generator.document.getCreateDocumentsItem(document, currencyId)
@@ -779,6 +756,33 @@ Generator
     Generator.document.blockcity.landDocument(documentId, owner, address, area, renter, account, rentDate, period)
     Generator.document.blockcity.voteDocument(documentId, owner, round, endTime, candidates, bossName, account, office)
     Generator.document.blockcity.historyDocument(documentId, owner, name, account, date, usage, application)
+
+    /* For Feefi */
+    Generator.feefi.getPoolRegisterFact(sender, target, initFee, incomeCid, outlayCid, currencyId)
+    Generator.feefi.getPoolPolicyUpdaterFact(sender, target, fee, incomeCid, outlayCid, currencyId)
+    Generator.feefi.getPoolDepositsFact(sender, pool, incomeCid, outlayCid, amount)
+    Generator.feefi.getPoolWithdrawFact(sender, pool, incomeCid, outlayCid, amounts)
+
+    /* For NFT */
+    Generator.nft.signer(account, share, signed)
+    Generator.nft.signers(total, signers)
+    Generator.nft.collectionRegisterForm(target, symbol, name, royalty, uri, whites)
+    Generator.nft.collectionPolicy(name, royalty, uri, whites) 
+    Generator.nft.mintForm(hash, uri, creators, copyrighters)
+    Generator.nft.getMintItem(collection, form, currencyId)
+    Generator.nft.getTransferItem(receiver, nftId, currencyId)
+    Generator.nft.getBurnItem(nftId, currencyId)
+    Generator.nft.getApproveItem(approved, nftId, currencyId)
+    Generator.nft.getDelegateItem(collection, agent, mode, currencyId)
+    Generator.nft.getSignItem(qualification, nftId, cid)
+    Generator.nft.getCollectionRegisterFact(sender, form, currencyId)
+    Generator.nft.getCollectionPolicyUpdaterFact(sender, collection, policy, cid)
+    Generator.nft.getMintFact(sender, items)
+    Generator.nft.getTransferFact(sender, items)
+    Generator.nft.getBurnFact(sender, items)
+    Generator.nft.getApproveFact(sender, items)
+    Generator.nft.getDelegateFact(sender, items)
+    Generator.nft.getSignFact(sender, items)
 
     /* Common */
     Generator.getOperation(fact, memo)
